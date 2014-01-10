@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Ruby-Bits | Semiscon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="og:type" content="blog">
+<meta name="og:title" content="Ruby-Bits">
+<meta name="og:url" content="http://yoursite.com/2013/09/05/ruby-bits/">
+<meta name="og:image">
+<meta name="og:site_name" content="Semiscon">
+<meta name="og:description" content="关于Ruby最佳实践的记录，我几乎已经放弃向周围的人推荐Ruby这门让人开心的语言了，原因其实很奇怪。
+关于参数，Ruby的Function中定义的函数或类总是会接收很多参数 不接受参数的Function不觉得很奇葩吗？
+传统的语法和实践是
+1
+2
+3
+def CHR(username,login_id,message)
+ #...
+end
+
+
+这个不能说错 但按照CodeSchool老师的原话来">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="Semiscon" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/my_favicon.ico" type="image/x-ico">
+  
+  <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Semiscon</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">1024Bit</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ruby-bits" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/09/05/ruby-bits/" class="article-date">
+  <time datetime="2013-09-05T14:10:00.000Z" itemprop="datePublished">Sep 5 2013</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Ruby/">Ruby</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Ruby-Bits
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>关于Ruby最佳实践的记录，我几乎已经放弃向周围的人推荐Ruby这门让人开心的语言了，原因其实很奇怪。</p>
+<p>关于参数，Ruby的Function中定义的函数或类总是会接收很多参数 不接受参数的Function不觉得很奇葩吗？</p>
+<p>传统的语法和实践是</p>
+<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">CHR</span><span class="params">(username,login_id,message)</span></span>
+ <span class="comment">#...</span>
+<span class="keyword">end</span>
+</pre></td></tr></table></figure>
+
+<p>这个不能说错 但按照CodeSchool老师的原话来说<code>Location isn&#39;t always used, so let&#39;s add default.</code></p>
+<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">CHR</span><span class="params">(username,login_id=<span class="keyword">nil</span>,message=<span class="keyword">nil</span>)</span></span>
+ <span class="comment">#...</span>
+<span class="keyword">end</span>
+</pre></td></tr></table></figure>
+
+<p>还有一种情况就是参数过多，以致于让function变得毫无可读性<code>have to keep placeholders for arguments you’re not using</code><br>这个时候可以采用 <code>HASH Arguments</code></p>
+<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="code"><pre>
+<span class="function"><span class="keyword">def</span> <span class="title">tweet</span><span class="params">(message, options = {})</span></span>
+  status = <span class="constant">Status</span>.new
+  status.lat = options[<span class="symbol">:lat</span>]
+  status.long = options[<span class="symbol">:long</span>]
+  status.body = message
+  status.reply_id = options[<span class="symbol">:reply_id</span>]
+  status.post
+<span class="keyword">end</span>
+</pre></td></tr></table></figure>
+
+<p>调用的时候 就可以利用Symbol来实现多参数。</p>
+<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre>￼tweet(<span class="string">"Practicing Ruby-Fu!"</span>,
+  <span class="symbol">:lat</span> =&gt; <span class="number">28.55</span>,
+  <span class="symbol">:long</span> =&gt; -<span class="number">81.33</span>,
+  <span class="symbol">:reply_id</span> =&gt; <span class="number">227946</span>
+￼￼)
+</pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h3 id="Using_Ruby_1-9_hash_syntax">Using Ruby 1.9 hash syntax</h3>
+<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre>tweet(<span class="string">"Practicing Ruby-Fu!"</span>, 
+    <span class="symbol">lat:</span> <span class="number">28.55</span>,
+    <span class="symbol">long:</span> -<span class="number">81.33</span>, 
+    <span class="symbol">reply_id:</span> <span class="number">227946</span>
+)
+</pre></td></tr></table></figure>
+
+<p>参数的顺序也无所谓了 </p>
+<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre>￼tweet(<span class="string">"Practicing Ruby-Fu!"</span>,
+  <span class="symbol">reply_id:</span> <span class="number">227946</span>,
+  <span class="symbol">lat:</span> <span class="number">28.55</span>,
+  <span class="symbol">long:</span> -<span class="number">81.33</span>
+)
+</pre></td></tr></table></figure>
+
+<p>一个参数也ok</p>
+<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>tweet(<span class="string">"Practicing Ruby-Fu!"</span>)
+</pre></td></tr></table></figure>
+
+<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">new_game</span><span class="params">(name, options={})</span></span>
+  {
+    <span class="symbol">name:</span> name,
+    <span class="symbol">year:</span> options[<span class="symbol">:year</span>],
+    <span class="symbol">system:</span> options[<span class="symbol">:system</span>]
+  }
+<span class="keyword">end</span>
+game = new_game(<span class="string">"Street Figher II"</span>, <span class="symbol">year:</span> <span class="number">1992</span>, <span class="symbol">system:</span> <span class="string">"SNES"</span>)
+</pre></td></tr></table></figure>
+
+<h3 id="EXCEPTIONS">EXCEPTIONS</h3>
+<p>关于判断例外EXCEPTIONS的问题 最传统的写法就是先做判断 有值就出来 如果没值的话 就抛除个神器的东西。貌似这么写程序不太好。</p>
+<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">get_tweets</span><span class="params">(list)</span></span>
+  <span class="keyword">if</span> list.authorized?(<span class="variable">@user</span>)
+    list.tweets <span class="comment">#如果这个user是验证成功的就把他的tweet列出来</span>
+<span class="keyword">else</span>
+    <span class="keyword">end</span>[] <span class="comment">#“magic” return value</span>
+<span class="keyword">end</span>
+</pre></td></tr></table></figure>
+
+<p>如果没有tweet 查出来是空的话  还要报一个Error 貌似在Ruby里没这个必要。</p>
+<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre>tweets = get_tweets(my_list)
+<span class="keyword">if</span> tweets.empty?
+  alert <span class="string">"No tweets were found!"</span> + 
+  <span class="string">"Are you authorized to access this list?"</span>
+<span class="keyword">end</span>
+</pre></td></tr></table></figure>
+
+<p>最佳方法应该是用unless先对<code>@user</code>这个对象进行判断 如果没有就用<code>raise</code>来抛除一个异常并返回登陆.</p>
+<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="code"><pre>￼<span class="function"><span class="keyword">def</span> <span class="title">get_tweets</span><span class="params">(list)</span></span>
+  <span class="keyword">unless</span> list.authorized?(<span class="variable">@user</span>)
+    raise <span class="constant">AuthorizationException</span>.new
+  <span class="keyword">end</span>
+list.tweets
+<span class="keyword">end</span>
+
+<span class="keyword">begin</span>
+  tweets = get_tweets(my_list)
+<span class="keyword">rescue</span> <span class="constant">AuthorizationException</span>
+  warn <span class="string">"You are not authorized to access this list."</span>
+<span class="keyword">end</span>
+</pre></td></tr></table></figure>
+
+<p>练习</p>
+<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="code"><pre><span class="class"><span class="keyword">class</span> <span class="title">InvalidGameError</span> <span class="inheritance">&lt; <span class="parent">StandardError</span></span>;</span> <span class="keyword">end</span>
+<span class="function"><span class="keyword">def</span> <span class="title">new_game</span><span class="params">(name, options={})</span></span>
+  {
+    <span class="symbol">name:</span> name,
+    <span class="symbol">year:</span> options[<span class="symbol">:year</span>],
+    <span class="symbol">system:</span> options[<span class="symbol">:system</span>]
+  }
+<span class="keyword">end</span>
+<span class="keyword">begin</span>
+  game = new_game(<span class="keyword">nil</span>)
+<span class="keyword">rescue</span> <span class="constant">InvalidGameError</span> =&gt; e
+  puts <span class="string">"There was a problem creating your new game: <span class="subst">#{e.message}</span>"</span>
+<span class="keyword">end</span>
+</pre></td></tr></table></figure>
+
+<p>We want to make sure that each game is a valid game object - in this case a simple hash of values. Even still, we wouldn’t want to return a hash with a nil name. Raise an InvalidGameError error in the new_game method if name is nil.</p>
+<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="code"><pre><span class="class"><span class="keyword">class</span> <span class="title">InvalidGameError</span> <span class="inheritance">&lt; <span class="parent">StandardError</span></span>;</span> <span class="keyword">end</span>
+<span class="function"><span class="keyword">def</span> <span class="title">new_game</span><span class="params">(name, options={})</span></span>
+	raise <span class="constant">InvalidGameError</span>, <span class="string">"You must provide a name for this game."</span> <span class="keyword">unless</span> name
+  {
+    <span class="symbol">name:</span> name,
+    <span class="symbol">year:</span> options[<span class="symbol">:year</span>],
+    <span class="symbol">system:</span> options[<span class="symbol">:system</span>]
+  }
+<span class="keyword">end</span>
+<span class="keyword">begin</span>
+  game = new_game(<span class="keyword">nil</span>)
+<span class="keyword">rescue</span> <span class="constant">InvalidGameError</span> =&gt; e
+  puts <span class="string">"There was a problem creating your new game: <span class="subst">#{e.message}</span>"</span>
+<span class="keyword">end</span>
+</pre></td></tr></table></figure>
+
+<h3 id="splat_arguments">splat arguments</h3>
+<p>说实话 我没觉得这个比hash那个要实用</p>
+<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="code"><pre>￼<span class="function"><span class="keyword">def</span> <span class="title">mention</span><span class="params">(status, *names)</span></span>
+  tweet(<span class="string">"<span class="subst">#{names.join(<span class="string">' '</span>)}</span> <span class="subst">#{status}</span>"</span>)
+<span class="keyword">end</span>
+
+mention(<span class="string">'Your courses rocked!'</span>, <span class="string">'eallam'</span>, <span class="string">'greggpollack'</span>, <span class="string">'jasonvanlue'</span>)
+
+<span class="function"><span class="keyword">def</span> <span class="title">describe_favorites</span><span class="params">(*games)</span></span>
+  <span class="keyword">for</span> game <span class="keyword">in</span> games
+    puts <span class="string">"Favorite Game: <span class="subst">#{game}</span>"</span>
+  <span class="keyword">end</span>  
+<span class="keyword">end</span>
+describe_favorites(<span class="string">'Mario'</span>, <span class="string">'Contra'</span>, <span class="string">'Metroid'</span>)
+</pre></td></tr></table></figure>
+
+<p>为一个二维Array创建一个Class</p>
+<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="code"><pre>￼user_names = [
+  [<span class="string">"Ashton"</span>, <span class="string">"Kutcher"</span>],
+  [<span class="string">"Wil"</span>, <span class="string">"Wheaton"</span>],
+  [<span class="string">"Madonna"</span>]
+]
+
+user_names.each { |n| puts <span class="string">"<span class="subst">#{n[<span class="number">1</span>]}</span>, <span class="subst">#{n[<span class="number">0</span>]}</span>"</span> }
+</pre></td></tr></table></figure>
+
+<p>这个要直接打印出来 最后那个就会多一个分隔符。</p>
+<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="code"><pre><span class="class"><span class="keyword">class</span> <span class="title">Name</span></span>
+  <span class="function"><span class="keyword">def</span> <span class="title">initialize</span><span class="params">(first, last = <span class="keyword">nil</span>)</span></span>
+    <span class="variable">@first</span> = first
+    <span class="variable">@last</span> = last
+  <span class="keyword">end</span>
+ 
+￼￼<span class="function"><span class="keyword">def</span> <span class="title">format</span></span>
+    [<span class="variable">@last</span>, <span class="variable">@first</span>].compact.join(<span class="string">', '</span>)
+  <span class="keyword">end</span> 
+<span class="keyword">end</span>
+</pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2013/09/05/ruby-bits/" data-id="yqla4d0ekntducx7" class="article-share-link">Share</a>
+      
+        <a href="http://yoursite.com/2013/09/05/ruby-bits/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ruby/">Ruby</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2013/09/08/ruby-inject/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Ruby inject
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/09/05/heroku/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">heroku</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arduino/">Arduino</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deploy/">Deploy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IOS/">IOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kettle/">Kettle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Objective-C/">Objective-C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Talks/">Talks</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Arduino/" style="font-size: 13.33px;">Arduino</a><a href="/tags/Deploy/" style="font-size: 10.00px;">Deploy</a><a href="/tags/Heroku/" style="font-size: 10.00px;">Heroku</a><a href="/tags/IOS/" style="font-size: 10.00px;">IOS</a><a href="/tags/Kettle/" style="font-size: 10.00px;">Kettle</a><a href="/tags/Linux/" style="font-size: 10.00px;">Linux</a><a href="/tags/MySQL/" style="font-size: 16.67px;">MySQL</a><a href="/tags/Objective-C/" style="font-size: 10.00px;">Objective-C</a><a href="/tags/Ruby/" style="font-size: 20.00px;">Ruby</a><a href="/tags/Talks/" style="font-size: 10.00px;">Talks</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">January 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09">September 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08">August 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05">May 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/05">May 2010</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2014/01/09/mysql-replication/">MYSQL Replication学习总结</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/09/mysql-error-1372-(hy000)/">MYSQL ERROR 1372 (HY000)</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/09/why-used-cmake/">为什么用Cmake？</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/07/linux-install-mysql55/">Linux Install MySQL5.5</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/07/hello-world/">Hello New World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 Johnny Hsu<br>
+      Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'woodyxu';
+  
+  var disqus_url = 'http://yoursite.com/2013/09/05/ruby-bits/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//go.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script type="text/javascript" src="/js/script.js"></script>
+  </div>
+</body>
+</html>

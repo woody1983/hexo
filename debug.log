@@ -1,0 +1,46 @@
+date: 2014-01-09 14:31:38.983
+argv: node /usr/local/bin/hexo s
+os: Linux 2.6.26.8 linux ia32
+version:
+  hexo: 2.4.2
+  http_parser: 1.0
+  node: 0.10.18
+  v8: 3.14.5.9
+  ares: 1.9.0-DEV
+  uv: 0.10.15
+  zlib: 1.2.3
+  modules: 11
+  openssl: 1.0.1e
+---
+
+[debug] 14:31:30.343 Configuration file load successfully
+[debug] 14:31:30.347 Version info checked successfully
+[debug] 14:31:30.403 Loading database.
+[debug] 14:31:30.449 Script load successfully: fancybox.js
+[debug] 14:31:30.480 Theme layout loaded
+[debug] 14:31:30.531 Theme configuration loaded
+[debug] 14:31:30.535 Processed: favicon_data.ico.ico
+[debug] 14:31:30.557 Theme source loaded
+[debug] 14:31:31.409 Processed: _posts/2013-06-09-guan-yu-hc-sr04-chao-sheng-bo-chuan-gan-qi.markdown
+[debug] 14:31:31.409 Processed: _posts/2013-09-26-ruby-proc.markdown
+[debug] 14:31:31.409 Processed: _posts/about-blocks-with-objective-c.markdown
+[debug] 14:31:31.409 Processed: _posts/eigenclass-with-module.markdown
+[debug] 14:31:31.409 Processed: _posts/hello-world.md
+[debug] 14:31:31.409 Processed: _posts/heroku.markdown
+[debug] 14:31:31.409 Processed: _posts/linux-install-mysql55.md
+[debug] 14:31:31.409 Processed: _posts/lm35.markdown
+[debug] 14:31:31.409 Processed: _posts/mysql-error-1372-(hy000).md
+[debug] 14:31:31.409 Processed: _posts/mysql-note.markdown
+[debug] 14:31:31.409 Processed: _posts/mysql-replication.markdown
+[debug] 14:31:31.410 Processed: _posts/refactoring.markdown
+[debug] 14:31:31.411 Processed: _posts/ruby-alias-around.markdown
+[debug] 14:31:31.411 Processed: _posts/ruby-bits.markdown
+[debug] 14:31:31.411 Processed: _posts/ruby-block-proc.markdown
+[debug] 14:31:31.411 Processed: _posts/ruby-inject.markdown
+[debug] 14:31:31.411 Processed: _posts/ruby-on-kettle.markdown
+[debug] 14:31:31.411 Processed: _posts/why-used-cmake.md
+[debug] 14:31:31.416 Cache saved
+[info] 14:31:31.521 Hexo is running at localhost:4000/. Press Ctrl+C to stop.
+[debug] 14:31:34.870 Render index: 
+[error] 14:31:38.980 Error: ENOENT, open '/usr/local/hexo/blog/source/favicon.ico'
+Error: ENOENT, open '/usr/local/hexo/blog/source/favicon.ico'

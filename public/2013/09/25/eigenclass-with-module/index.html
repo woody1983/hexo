@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>eigenclass with Module | Semiscon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="og:type" content="blog">
+<meta name="og:title" content="eigenclass with Module">
+<meta name="og:url" content="http://yoursite.com/2013/09/25/eigenclass-with-module/">
+<meta name="og:image">
+<meta name="og:site_name" content="Semiscon">
+<meta name="og:description" content="我用了一个很笨的方法才把这个搞明白 那就是… 
+Module的eigenclass 不会被任何事物继承  绝对封闭！
+元编程#129Pages#Quiz
+例子弄错了~在线编辑器害死人  凸
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+module MyModule 
+  def my_method; 'hello';end
+end
+
+class Myclas">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="Semiscon" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/my_favicon.ico" type="image/x-ico">
+  
+  <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Semiscon</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">1024Bit</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-eigenclass-with-module" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/09/25/eigenclass-with-module/" class="article-date">
+  <time datetime="2013-09-25T15:23:00.000Z" itemprop="datePublished">Sep 25 2013</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Ruby/">Ruby</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      eigenclass with Module
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我用了一个很笨的方法才把这个搞明白 那就是… </p>
+<h1 id="Module-7684-eigenclass_-4e0d-4f1a-88ab-4efb-4f55-4e8b-7269-7ee7-627f-_-7edd-5bf9-5c01-95ed-ff01-">Module的eigenclass 不会被任何事物继承  绝对封闭！</h1>
+<p><code>元编程#129Pages#Quiz</code></p>
+<h3 id="-4f8b-5b50-5f04-9519-4e86-7e-5728-7ebf-7f16-8f91-5668-5bb3-6b7b-4eba-_-51f8-">例子弄错了~在线编辑器害死人  凸</h3>
+<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre></td><td class="code"><pre><span class="class"><span class="keyword">module</span> <span class="title">MyModule</span> </span>
+  <span class="function"><span class="keyword">def</span> <span class="title">my_method</span>;</span> <span class="string">'hello'</span>;<span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="class"><span class="keyword">class</span> <span class="title">Myclass</span> </span>
+  <span class="keyword">include</span> <span class="constant">MyModule</span>
+<span class="keyword">end</span>
+
+irb(main)<span class="symbol">:</span><span class="number">004</span><span class="symbol">:</span><span class="number">0</span>&gt; <span class="constant">MyModule</span>.my_method
+<span class="comment">#NoMethodError: undefined method `my_method' for MyModule:Module</span>
+irb(main)<span class="symbol">:</span><span class="number">010</span><span class="symbol">:</span><span class="number">0</span>&gt; puts <span class="constant">Myclass</span>.my_method
+<span class="comment">#NoMethodError: undefined method `my_method' for Myclass:Class</span>
+irb(main)<span class="symbol">:</span><span class="number">011</span><span class="symbol">:</span><span class="number">0</span>&gt; obj = <span class="constant">Myclass</span>.new
+<span class="comment">#=&gt; #&lt;Myclass:0x861fa78&gt;</span>
+irb(main)<span class="symbol">:</span><span class="number">012</span><span class="symbol">:</span><span class="number">0</span>&gt; puts obj.my_method
+<span class="comment">#hello</span>
+<span class="comment">#=&gt; nil</span>
+</pre></td></tr></table></figure>
+
+<p>在Module中定义一个普通的实例方法 Myclass Include该Module 只有Myclass的实例obj可以调用<br>也就是说<code>my_method</code>一直作为实例方法在ancestors中流窜</p>
+<a id="more"></a>
+
+<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="code"><pre><span class="class"><span class="keyword">module</span> <span class="title">MyModule</span> </span>
+	<span class="function"><span class="keyword">def</span> <span class="title"><span class="keyword">self</span></span>.<span class="title">my_method</span>;</span> <span class="string">'hello'</span>;<span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="class"><span class="keyword">class</span> <span class="title">Myclass</span></span>
+  <span class="keyword">include</span> <span class="constant">MyModule</span>
+<span class="keyword">end</span>
+
+irb(main)<span class="symbol">:</span><span class="number">007</span><span class="symbol">:</span><span class="number">0</span>&gt; <span class="constant">MyModule</span>.my_method
+<span class="comment">#=&gt; "hello"</span>
+irb(main)<span class="symbol">:</span><span class="number">00</span>8<span class="symbol">:</span><span class="number">0</span>&gt; <span class="constant">Myclass</span>.my_method
+<span class="comment">#NoMethodError: undefined method `my_method' for Myclass:Class</span>
+irb(main)<span class="symbol">:</span><span class="number">00</span>9<span class="symbol">:</span><span class="number">0</span>&gt; obj = <span class="constant">Myclass</span>.new
+<span class="comment">#=&gt; #&lt;Myclass:0x8627980&gt;</span>
+irb(main)<span class="symbol">:</span><span class="number">010</span><span class="symbol">:</span><span class="number">0</span>&gt; obj.my_method
+<span class="comment">#NoMethodError: undefined method `my_method' for #&lt;Myclass:0x8627980&gt;</span>
+</pre></td></tr></table></figure>
+
+<p>第二次  将Module中的方法改成是了实例方法  结果正常 只有MyModule可以正常调用  但Myclass并没有继承到<br>难道在Myclass的eigenclass中并没有得到这个继承？</p>
+<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td><td class="code"><pre><span class="class"><span class="keyword">module</span> <span class="title">MyModule</span> </span>
+  <span class="function"><span class="keyword">def</span> <span class="title">my_method</span>;</span> <span class="string">'hello'</span>;<span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="class"><span class="keyword">class</span> <span class="title">Myclass</span> </span>
+  <span class="class"><span class="keyword">class</span> <span class="inheritance">&lt;</span><span class="inheritance">&lt; <span class="parent">self</span></span></span>
+	<span class="keyword">include</span> <span class="constant">MyModule</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+irb(main)<span class="symbol">:</span><span class="number">00</span>9<span class="symbol">:</span><span class="number">0</span>&gt; <span class="constant">MyModule</span>.my_method
+<span class="comment">#NoMethodError: undefined method `my_method' for MyModule:Module</span>
+irb(main)<span class="symbol">:</span><span class="number">010</span><span class="symbol">:</span><span class="number">0</span>&gt; <span class="constant">Myclass</span>.my_method
+<span class="comment">#=&gt; "hello"</span>
+irb(main)<span class="symbol">:</span><span class="number">011</span><span class="symbol">:</span><span class="number">0</span>&gt; obj = <span class="constant">Myclass</span>.new
+<span class="comment">#=&gt; #&lt;Myclass:0x8627570&gt;</span>
+irb(main)<span class="symbol">:</span><span class="number">012</span><span class="symbol">:</span><span class="number">0</span>&gt; obj.my_method
+<span class="comment">#NoMethodError: undefined method `my_method' for #&lt;Myclass:0x8627570&gt;</span>
+</pre></td></tr></table></figure>
+
+<p>第三次和第一次的修改差异在 将MyModule植入到 Myclass的eigenclass中了~ Myclass可以正常调用该类方法</p>
+<h3 id="-53ef-662f-4f5c-4e3a-_Myclass-7684-5b9e-4f8b-5bf9-8c61-obj-5374-4e0d-80fd-8c03-7528-8fd9-4e2a-my_method-4e86-">可是作为 Myclass的实例对象obj却不能调用这个my_method了</h3>
+<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="code"><pre><span class="class"><span class="keyword">module</span> <span class="title">MyModule</span> </span>
+	<span class="function"><span class="keyword">def</span> <span class="title"><span class="keyword">self</span></span>.<span class="title">my_method</span>;</span> <span class="string">'hello'</span>;<span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="class"><span class="keyword">class</span> <span class="title">Myclass</span> </span>
+  <span class="class"><span class="keyword">class</span> <span class="inheritance">&lt;</span><span class="inheritance">&lt; <span class="parent">self</span></span></span>
+	<span class="keyword">include</span> <span class="constant">MyModule</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+irb(main)<span class="symbol">:</span><span class="number">00</span>9<span class="symbol">:</span><span class="number">0</span>&gt; <span class="constant">MyModule</span>.my_method
+<span class="comment">#=&gt; "hello"</span>
+irb(main)<span class="symbol">:</span><span class="number">010</span><span class="symbol">:</span><span class="number">0</span>&gt; <span class="constant">Myclass</span>.my_method
+<span class="comment">#NoMethodError: undefined method `my_method' for Myclass:Class</span>
+irb(main)<span class="symbol">:</span><span class="number">011</span><span class="symbol">:</span><span class="number">0</span>&gt; obj = <span class="constant">Myclass</span>.new
+<span class="comment">#=&gt; #&lt;Myclass:0x862bfa8&gt;</span>
+irb(main)<span class="symbol">:</span><span class="number">012</span><span class="symbol">:</span><span class="number">0</span>&gt; puts obj.my_method
+<span class="comment">#NoMethodError: undefined method `my_method' for #&lt;Myclass:0x862bfa8&gt;</span>
+
+<span class="comment"># my_method就算变成Module的类方法以后 还是被继承下来了 和普通的Include看起来效果好像是一样的</span>
+</pre></td></tr></table></figure>
+
+<p>第四次和第二次 得到的结果是一样的 也就是进没进Myclass的eigenclass都一样~ </p>
+<p>我把第四部分重写了一下 加入了另一个实例方法在Module中</p>
+<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="code"><pre><span class="class"><span class="keyword">module</span> <span class="title">MyModule</span></span>
+  <span class="function"><span class="keyword">def</span> <span class="title"><span class="keyword">self</span></span>.<span class="title">my_method</span>;</span> <span class="string">'hello'</span>;<span class="keyword">end</span>
+  <span class="function"><span class="keyword">def</span> <span class="title">mine_method</span>;</span> <span class="string">'another method'</span>; <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="class"><span class="keyword">class</span> <span class="title">Myclass</span></span>
+  <span class="class"><span class="keyword">class</span> <span class="inheritance">&lt;</span><span class="inheritance">&lt; <span class="parent">self</span></span></span>
+    <span class="keyword">include</span> <span class="constant">MyModule</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+irb(main)<span class="symbol">:</span><span class="number">012</span><span class="symbol">:</span><span class="number">0</span>* <span class="constant">Myclass</span>.mine_method
+<span class="comment">#=&gt; "another method"</span>
+irb(main)<span class="symbol">:</span><span class="number">013</span><span class="symbol">:</span><span class="number">0</span>&gt; <span class="constant">Myclass</span>.my_method
+<span class="comment">#NoMethodError: undefined method `my_method' for Myclass:Class</span>
+</pre></td></tr></table></figure>
+
+<p>看来<code>class &lt;&lt; self</code>这种方法只能把MyModule中的实例方法植入到Myclass的eigenclass中 类方法不行</p>
+<h2 id="-96be-9053-4e0b-9762-8fd9-4e48-505a-662f-8ba9-_MyModule-4ec5-4ec5-690d-5165-5230-_Myclass-7684-eigenclass-4e2d-_-800c-5728-Myclass-4e2d-662f-4e0d-53ef-89c1-7684-ff1f-">难道下面这么做是让 MyModule仅仅植入到 Myclass的eigenclass中 而在Myclass中是不可见的？</h2>
+<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre><span class="class"><span class="keyword">class</span> <span class="title">Myclass</span> </span>
+  <span class="class"><span class="keyword">class</span> <span class="inheritance">&lt;</span><span class="inheritance">&lt; <span class="parent">self</span></span></span>
+    <span class="keyword">include</span> <span class="constant">MyModule</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2013/09/25/eigenclass-with-module/" data-id="f8hyxhdhlhv90th1" class="article-share-link">Share</a>
+      
+        <a href="http://yoursite.com/2013/09/25/eigenclass-with-module/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ruby/">Ruby</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2013/09/25/refactoring/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Ruby Refactoring
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/09/25/ruby-block-proc/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Ruby Block &amp; Proc</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arduino/">Arduino</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deploy/">Deploy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IOS/">IOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kettle/">Kettle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Objective-C/">Objective-C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Talks/">Talks</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Arduino/" style="font-size: 13.33px;">Arduino</a><a href="/tags/Deploy/" style="font-size: 10.00px;">Deploy</a><a href="/tags/Heroku/" style="font-size: 10.00px;">Heroku</a><a href="/tags/IOS/" style="font-size: 10.00px;">IOS</a><a href="/tags/Kettle/" style="font-size: 10.00px;">Kettle</a><a href="/tags/Linux/" style="font-size: 10.00px;">Linux</a><a href="/tags/MySQL/" style="font-size: 16.67px;">MySQL</a><a href="/tags/Objective-C/" style="font-size: 10.00px;">Objective-C</a><a href="/tags/Ruby/" style="font-size: 20.00px;">Ruby</a><a href="/tags/Talks/" style="font-size: 10.00px;">Talks</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">January 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09">September 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08">August 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05">May 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/05">May 2010</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2014/01/09/mysql-replication/">MYSQL Replication学习总结</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/09/mysql-error-1372-(hy000)/">MYSQL ERROR 1372 (HY000)</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/09/why-used-cmake/">为什么用Cmake？</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/07/linux-install-mysql55/">Linux Install MySQL5.5</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/07/hello-world/">Hello New World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 Johnny Hsu<br>
+      Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'woodyxu';
+  
+  var disqus_url = 'http://yoursite.com/2013/09/25/eigenclass-with-module/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//go.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script type="text/javascript" src="/js/script.js"></script>
+  </div>
+</body>
+</html>

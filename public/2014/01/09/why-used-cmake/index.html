@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>为什么用Cmake？ | Semiscon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="og:type" content="blog">
+<meta name="og:title" content="为什么用Cmake？">
+<meta name="og:url" content="http://yoursite.com/2014/01/09/why-used-cmake/">
+<meta name="og:image">
+<meta name="og:site_name" content="Semiscon">
+<meta name="og:description" content="mysql版本5.5以上编译安装时需要用到软件cmake，cmake特性是独立于源码编译，编译工作可以在另外一个目录中而非源码目录中进行，好处是可以保证源码目录不受任何一次编译的影响。
+
+1
+2
+3
+4
+5
+[pi@raspi ~]# wget http://www.cmake.org/files/v2.8/cmake-2.8.11.2.tar.gz
+[pi@raspi ~]# tar zxvf">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="Semiscon" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/my_favicon.ico" type="image/x-ico">
+  
+  <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Semiscon</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">1024Bit</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-why-used-cmake" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/01/09/why-used-cmake/" class="article-date">
+  <time datetime="2014-01-09T01:12:19.000Z" itemprop="datePublished">Jan 9 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      为什么用Cmake？
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>mysql版本5.5以上编译安装时需要用到软件cmake，cmake特性是独立于源码编译，编译工作可以在另外一个目录中而非源码目录中进行，好处是可以保证源码目录不受任何一次编译的影响。</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre>[pi<span class="variable">@raspi</span> ~]<span class="comment"># wget http://www.cmake.org/files/v2.8/cmake-2.8.11.2.tar.gz</span>
+[pi<span class="variable">@raspi</span> ~]<span class="comment"># tar zxvf cmake-2.8.11.2.tar.gz</span>
+[pi<span class="variable">@raspi</span> ~]<span class="comment"># cd  cmake-2.8.11.2</span>
+[pi<span class="variable">@raspi</span> ~]<span class="comment"># ./bootstrap</span>
+[pi<span class="variable">@raspi</span> ~]<span class="comment"># make && make install</span>
+</pre></td></tr></table></figure>
+
+<p><a href="http://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.15.tar.gz" target="_blank">Get MySQL5.6.15</a></p>
+<figure class="highlight lang-shell"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre>cmake <span class="attribute">-DCMAKE_INSTALL_PREFIX</span><span class="subst">=/</span>opt<span class="subst">/</span>mysql <span class="attribute">-DMYSQL_UNIX_ADDR</span><span class="subst">=/</span>tmp<span class="subst">/</span>mysql<span class="built_in">.</span>sock <span class="attribute">-DDEFAULT_CHARSET</span><span class="subst">=</span>utf8 <span class="subst">\</span>
+<span class="attribute">-DDEFAULT_COLLATION</span><span class="subst">=</span>utf8_general_ci  <span class="attribute">-DWITH_EXTRA_CHARSETS</span><span class="subst">=</span><span class="literal">all</span> <span class="attribute">-DWITH_INNOBASE_STORAGE_ENGINE</span><span class="subst">=</span><span class="number">1</span> <span class="subst">\</span>
+<span class="attribute">-DWITH_ARCHIVE_STORAGE_ENGINE</span><span class="subst">=</span><span class="number">1</span> <span class="attribute">-DWITH_BLACKHOLE_STORAGE_ENGINE</span><span class="subst">=</span><span class="number">1</span> <span class="attribute">-DWITH_PERFSCHEMA_STORAGE_ENGINE</span><span class="subst">=</span><span class="number">1</span> <span class="subst">\</span>
+<span class="attribute">-DWITH_SSL</span><span class="subst">=</span>yes  <span class="attribute">-DENABLED_LOCAL_INFILE</span><span class="subst">=</span><span class="number">1</span>
+</pre></td></tr></table></figure>
+
+<p><a id="more"></a></p>
+<h3 id="Setup_after_Installed">Setup after Installed</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="title">chown</span> -<span class="type">R</span> root.mysql /opt/mysql/ 
+<span class="title">chown</span> -<span class="type">R</span> mysql.mysql /opt/mysql/<span class="keyword">data</span>/
+</pre></td></tr></table></figure>
+
+<h3 id="Init_Database">Init Database</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="comment">/opt/mysql/scripts/mysql_install_db</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">user=mysql</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">basedir=/opt/mysql/</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">datadir=/opt/mysql/data/</span>
+<span class="comment">cp</span> <span class="comment">/opt/mysql/support</span><span class="literal">-</span><span class="comment">files/my</span><span class="literal">-</span><span class="comment">default</span><span class="string">.</span><span class="comment">cnf</span> <span class="comment">/etc/my</span><span class="string">.</span><span class="comment">cnf</span>
+</pre></td></tr></table></figure>
+
+<h3 id="Start_running">Start running</h3>
+<p><code>/opt/mysql/bin/mysqld_safe &amp;</code></p>
+<h2 id="cmake-7f16-8bd1-53c2-6570-8be6-89e3-ff1a-">cmake编译参数详解：</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre></td><td class="code"><pre><span class="keyword">http</span>://dev.mysql.com/doc/refman/<span class="number">5.6</span>/en/source-configuration-options.html
+-DCMAKE_INSTALL_PREFIX=dir_name  ：用于指定安装目录
+-DWITH_INNOBASE_STORAGE_ENGINE=<span class="number">1</span>
+-DWITH_ARCHIVE_STORAGE_ENGINE=<span class="number">1</span>
+-DWITH_BLACKHOLE_STORAGE_ENGINE=<span class="number">1</span>
+-DWITH_PERFSCHEMA_STORAGE_ENGINE=<span class="number">1</span>  ：常用存储引擎参数设置
+
+-DDEFAULT_CHARSET=charset_name
+The server <span class="keyword">character</span> set. By default, MySQL uses <span class="operator">the</span> latin1 (cp1252 West European) <span class="keyword">character</span> set.
+charset_name may be <span class="constant">one</span> <span class="operator">of</span> binary, armscii8, ascii, big5, cp1250, cp1251, cp1256, 
+cp1257, cp850, cp852, cp866, cp932, dec8, eucjpms, euckr, gb2312, gbk, geostd8, greek, 
+hebrew, hp8, keybcs2, koi8r, koi8u, latin1, latin2, latin5, latin7, macce, macroman, sjis, 
+swe7, tis620, ucs2, ujis, utf8, utf8mb4, utf16, utf16le, utf32. 
+The permissible <span class="keyword">character</span> sets are listed <span class="operator">in</span> <span class="operator">the</span> cmake/character_sets.cmake <span class="built_in">file</span> <span class="keyword">as</span> <span class="operator">the</span> <span class="built_in">value</span> <span class="operator">of</span> CHARSETS_AVAILABLE.
+-DENABLED_LOCAL_INFILE=bool  ：bool值表示（<span class="number">1</span>表示允许该功能，<span class="number">0</span>表示没有改功能）
+ 
+-DMYSQL_UNIX_ADDR=file_name
+The Unix <span class="built_in">socket</span> <span class="built_in">file</span> path <span class="command"><span class="keyword">on</span> <span class="title">which</span> <span class="title">the</span> <span class="title">server</span> <span class="title">listens</span> <span class="title">for</span> <span class="title">socket</span> <span class="title">connections</span>. </span>
+This must be <span class="operator">an</span> absolute path name. The default is /tmp/mysql.sock.
+</pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/01/09/why-used-cmake/" data-id="wp9w1sm3q3nesr3h" class="article-share-link">Share</a>
+      
+        <a href="http://yoursite.com/2014/01/09/why-used-cmake/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/01/09/mysql-error-1372-(hy000)/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          MYSQL ERROR 1372 (HY000)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/01/07/linux-install-mysql55/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Linux Install MySQL5.5</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arduino/">Arduino</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deploy/">Deploy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IOS/">IOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kettle/">Kettle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Objective-C/">Objective-C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Talks/">Talks</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Arduino/" style="font-size: 13.33px;">Arduino</a><a href="/tags/Deploy/" style="font-size: 10.00px;">Deploy</a><a href="/tags/Heroku/" style="font-size: 10.00px;">Heroku</a><a href="/tags/IOS/" style="font-size: 10.00px;">IOS</a><a href="/tags/Kettle/" style="font-size: 10.00px;">Kettle</a><a href="/tags/Linux/" style="font-size: 10.00px;">Linux</a><a href="/tags/MySQL/" style="font-size: 16.67px;">MySQL</a><a href="/tags/Objective-C/" style="font-size: 10.00px;">Objective-C</a><a href="/tags/Ruby/" style="font-size: 20.00px;">Ruby</a><a href="/tags/Talks/" style="font-size: 10.00px;">Talks</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">January 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09">September 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08">August 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05">May 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/05">May 2010</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2014/01/09/mysql-replication/">MYSQL Replication学习总结</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/09/mysql-error-1372-(hy000)/">MYSQL ERROR 1372 (HY000)</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/09/why-used-cmake/">为什么用Cmake？</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/07/linux-install-mysql55/">Linux Install MySQL5.5</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/07/hello-world/">Hello New World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 Johnny Hsu<br>
+      Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'woodyxu';
+  
+  var disqus_url = 'http://yoursite.com/2014/01/09/why-used-cmake/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//go.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script type="text/javascript" src="/js/script.js"></script>
+  </div>
+</body>
+</html>

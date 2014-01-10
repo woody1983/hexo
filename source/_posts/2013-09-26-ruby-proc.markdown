@@ -1,0 +1,106 @@
+title: Hump day Note  {Block|Scope|Proc}
+date: 2013-09-26 00:03
+categories: Ruby
+tags: Ruby
+---
+
+### Basice
+
+``` ruby
+def m_method(a,b)
+  a + yield(a,b)
+end 
+
+m_method(1,2) {|x,y| (x+y)*3} 
+```
+
+#### When you run m_method ,then yield is should be excute, and include {_code_}
+
+### Closures
+
+> 这句话蛮好 : 代码要想运行 需要执行环境   局部变量 全局变量 self 等  但Block中 既有代码又有绑定 可以立即运行
+创建Block的时候 Block会自动获取局部的绑定 作用域class def module中的除外。
+
+一个方法中已经绑定了一个x变量 但调用Block的时候获取了def以外的一个名字也叫x的绑定 并用在自己的Block中 运行该方法时 回调Block的时候会将这个x的绑定直接带进原方法中 
+
+#### 另外就算原方法中已经绑定了x变量 如果Block没有获取到x的时候 直接运行该方法 会报错说找不到x 
+
+``` ruby
+   def my_method 
+..   x="Hello" 
+..   yield("woody") 
+..   end
+=> nil
+   my_method{|y| "#{x}, #{y} world" }
+(eval):3: undefined local variable or method `x' for main:Object (NameError)
+	from (eval):2:in `my_method'
+	from (eval):3
+
+   x = "Hi"
+=> "Hi"
+   my_method{|y| "#{x}, #{y} world" }
+=> "Hi, woody world"
+```
+<!-- more -->
+
+### Scope Gate
+
+#### 全局变量 $开头 任何作用域都可以访问！但是你依然可以用  顶级实例变量@ 来替代全局变量
+
+``` ruby 
+   @var = "the top-level @var"
+=> "the top-level @var"
+   def my_method 
+..   @var 
+..   end
+=> nil
+   my_method
+=> "the top-level @var"
+```
+#### 顶级实例变量比全局变量要安全一些
+
+### 扁平化Scope
+
+#### class/def/module 之间有一个小小的区别 Class和Module中的Code会被立即执行  def要等到调用的时候才会被执行
+
+``` ruby 
+   class Test_my_class 
+..   puts "111" 
+..   end
+111
+=> nil
+   module Test_my_module 
+..   puts "Module" 
+..   end
+Module
+=> nil
+   def Test_my_method 
+..   puts "Method" 
+..   end
+=> nil
+```
+
+### 穿越作用域
+
+#### 要让局部变量穿越 class Myclass这个Scope Gate 
+
+``` ruby
+var = 'scope'
+Myclass = Class.new do
+  puts "#{var} is here!"
+  define_method :my_method do
+     puts "#{var} in the def here!"
+  end
+end
+scope is here!
+=> Myclass
+ 
+
+My_module = Module.new do
+  puts "#{var}"
+end
+```
+
+* 想要让一组方法之间共享一个变量 而屏蔽掉方法对其的访问就用扁平化的方法
+* 将局部变量传给对象内的实例变量---打破封装---直接修改实例变量---能接受的理由就是测试
+* 创建一个对象 仅仅是为了用instance_eval来执行Block 这叫做Clean room

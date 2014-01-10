@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Linux Install MySQL5.5 | Semiscon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="og:type" content="blog">
+<meta name="og:title" content="Linux Install MySQL5.5">
+<meta name="og:url" content="http://yoursite.com/2014/01/07/linux-install-mysql55/">
+<meta name="og:image">
+<meta name="og:site_name" content="Semiscon">
+<meta name="og:description" content="First, Install Cmake
+1
+2
+3
+4
+5
+$tar zxf cmake-2.6.4.tar.gz
+$cd cmake-2.6.4
+$./bootstrap
+$make
+$sudo make install
+
+
+Make MySQL
+
+CMake
+CMake How to Install
+
+
+
+1
+2
+3
+4
+5
+6
+7
+8
+tar zxf mysql-5.5.11.tar.g">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="Semiscon" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/my_favicon.ico" type="image/x-ico">
+  
+  <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Semiscon</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">1024Bit</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-linux-install-mysql55" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/01/07/linux-install-mysql55/" class="article-date">
+  <time datetime="2014-01-07T06:15:49.000Z" itemprop="datePublished">Jan 7 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/MySQL/">MySQL</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Linux Install MySQL5.5
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="First-2c-_Install_Cmake">First, Install Cmake</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre><span class="variable">$tar</span> zxf cmake-<span class="number">2.6</span>.<span class="number">4</span>.tar.gz
+<span class="variable">$cd</span> cmake-<span class="number">2.6</span>.<span class="number">4</span>
+<span class="variable">$.</span>/bootstrap
+<span class="variable">$make</span>
+<span class="variable">$sudo</span> make install
+</pre></td></tr></table></figure>
+
+<h2 id="Make_MySQL">Make MySQL</h2>
+<ul>
+<li><a href="http://www.cmake.org/" target="_blank">CMake</a></li>
+<li><a href="http://www.cmake.org/cmake/help/install.html" target="_blank">CMake How to Install</a></li>
+</ul>
+<a id="more"></a>
+
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="code"><pre><span class="comment">tar</span> <span class="comment">zxf</span> <span class="comment">mysql</span><span class="literal">-</span><span class="comment">5</span><span class="string">.</span><span class="comment">5</span><span class="string">.</span><span class="comment">11</span><span class="string">.</span><span class="comment">tar</span><span class="string">.</span><span class="comment">g</span>
+<span class="comment">cd</span> <span class="comment">mysql</span><span class="literal">-</span><span class="comment">5</span><span class="string">.</span><span class="comment">5</span><span class="string">.</span><span class="comment">11</span>
+<span class="comment">CFLAGS="</span><span class="literal">-</span><span class="comment">O3"</span> <span class="comment">CXX=gcc</span>
+<span class="comment">CXXFLAGS="</span><span class="literal">-</span><span class="comment">O3</span> <span class="literal">-</span><span class="comment">felide</span><span class="literal">-</span><span class="comment">constructors</span> <span class="literal">-</span><span class="comment">fno</span><span class="literal">-</span><span class="comment">exceptions</span> <span class="literal">-</span><span class="comment">fno</span><span class="literal">-</span><span class="comment">rtti"</span>
+<span class="comment">cmake</span> <span class="string">.</span> <span class="literal">-</span><span class="comment">LH|more</span> 
+<span class="comment">cmake</span> <span class="string">.</span> <span class="literal">-</span><span class="comment">DCMAKE_INSTALL_PREFIX=/home/mysql/mysql</span> <span class="literal">-</span><span class="comment">DEXTRA_CHARSETS=all</span>
+<span class="comment">make</span> <span class="literal">-</span><span class="comment">j</span> <span class="comment">8</span> 
+<span class="comment">make</span> <span class="comment">install</span>
+</pre></td></tr></table></figure>
+
+<h2 id="Step_by_step">Step by step</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre>groupadd dba
+useradd -g dba mysql
+<span class="keyword">cp</span> mysql-<span class="number">5.5</span><span class="number">.11</span><span class="preprocessor">.tar</span><span class="preprocessor">.gz</span> /home/mysql/
+chown -R mysql:dba /home/mysql/mysql-<span class="number">5.5</span><span class="number">.11</span><span class="preprocessor">.tar</span><span class="preprocessor">.gz</span>
+</pre></td></tr></table></figure>
+
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="code"><pre><span class="comment">su</span> <span class="literal">-</span> <span class="comment">mysql</span>
+<span class="comment">tar</span> <span class="comment">zxf</span> <span class="comment">mysql</span><span class="literal">-</span><span class="comment">5</span><span class="string">.</span><span class="comment">5</span><span class="string">.</span><span class="comment">11</span><span class="string">.</span><span class="comment">tar</span><span class="string">.</span><span class="comment">gz</span>
+<span class="comment">cd</span> <span class="comment">mysql</span><span class="literal">-</span><span class="comment">5</span><span class="string">.</span><span class="comment">5</span><span class="string">.</span><span class="comment">11</span>
+<span class="comment">CFLAGS="</span><span class="literal">-</span><span class="comment">O3"</span> <span class="comment">CXX=gcc</span> 
+<span class="comment">CXXFLAGS="</span><span class="literal">-</span><span class="comment">O3</span> <span class="literal">-</span><span class="comment">felide</span><span class="literal">-</span><span class="comment">constructors</span> <span class="literal">-</span><span class="comment">fno</span><span class="literal">-</span><span class="comment">exceptions</span> <span class="literal">-</span><span class="comment">fno</span><span class="literal">-</span><span class="comment">rtti"</span>
+<span class="comment">cmake</span> <span class="string">.</span> <span class="literal">-</span><span class="comment">LH|more</span>        
+<span class="comment">cmake</span> <span class="string">.</span> <span class="literal">-</span><span class="comment">DCMAKE_INSTALL_PREFIX=/home/mysql/mysql</span> <span class="literal">-</span><span class="comment">DEXTRA_CHARSETS=all</span>
+<span class="comment">make</span> <span class="literal">-</span><span class="comment">j</span> <span class="comment">8</span> <span class="comment">&&</span> <span class="comment">make</span> <span class="comment">install</span>
+</pre></td></tr></table></figure>
+
+<h3 id="my-cnf">my.cnf</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="code"><pre><span class="title">cd</span> /home/mysql/mysql
+<span class="title">su</span> - root
+<span class="title">cp</span> mysql/share/mysql/my-medium.cnf /etc/my.cnf
+<span class="title">chown</span> -<span class="type">R</span> mysql:dba /etc/my.cnf
+
+<span class="title">su</span> - mysql
+<span class="title">vi</span> /etc/my.cnf
+<span class="title">basedir</span> = /home/mysql/mysql
+<span class="title">datadir</span> = /home/mysql/mysql/<span class="keyword">data</span>
+<span class="title">socket</span> = /home/mysql/mysql/run/mysql.sock
+<span class="title">log</span>-error = /home/mysql/mysql/log/alert.log
+<span class="title">log_slow_queries</span> = /home/mysql/mysql/log/slow.log
+</pre></td></tr></table></figure>
+
+<h3 id="Start_MySQL">Start MySQL</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre><span class="string">.</span><span class="comment">/scripts/mysql_install_db</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">basedir=/home/mysql/mysql</span>  <span class="comment">\</span>
+<span class="literal">-</span><span class="literal">-</span><span class="comment">datadir=/home/mysql/mysql/data</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">user=mysql</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">force</span>
+
+<span class="string">.</span><span class="comment">/bin/mysqld_safe</span> <span class="comment">&</span>
+</pre></td></tr></table></figure>
+
+<p><a href="http://www.orczhou.com/index.php/2011/06/compile-and-install-mysql-5-5-from-source/" target="_blank">Via original</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/01/07/linux-install-mysql55/" data-id="pp5xl131k750n7f9" class="article-share-link">Share</a>
+      
+        <a href="http://yoursite.com/2014/01/07/linux-install-mysql55/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/01/09/why-used-cmake/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          为什么用Cmake？
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/01/07/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello New World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arduino/">Arduino</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deploy/">Deploy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IOS/">IOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kettle/">Kettle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Objective-C/">Objective-C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Talks/">Talks</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Arduino/" style="font-size: 13.33px;">Arduino</a><a href="/tags/Deploy/" style="font-size: 10.00px;">Deploy</a><a href="/tags/Heroku/" style="font-size: 10.00px;">Heroku</a><a href="/tags/IOS/" style="font-size: 10.00px;">IOS</a><a href="/tags/Kettle/" style="font-size: 10.00px;">Kettle</a><a href="/tags/Linux/" style="font-size: 10.00px;">Linux</a><a href="/tags/MySQL/" style="font-size: 16.67px;">MySQL</a><a href="/tags/Objective-C/" style="font-size: 10.00px;">Objective-C</a><a href="/tags/Ruby/" style="font-size: 20.00px;">Ruby</a><a href="/tags/Talks/" style="font-size: 10.00px;">Talks</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">January 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09">September 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08">August 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05">May 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/05">May 2010</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2014/01/09/mysql-replication/">MYSQL Replication学习总结</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/09/mysql-error-1372-(hy000)/">MYSQL ERROR 1372 (HY000)</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/09/why-used-cmake/">为什么用Cmake？</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/07/linux-install-mysql55/">Linux Install MySQL5.5</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/07/hello-world/">Hello New World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 Johnny Hsu<br>
+      Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'woodyxu';
+  
+  var disqus_url = 'http://yoursite.com/2014/01/07/linux-install-mysql55/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//go.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script type="text/javascript" src="/js/script.js"></script>
+  </div>
+</body>
+</html>

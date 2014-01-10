@@ -1,4 +1,4 @@
-# Create a new repository on the command line
+### Create a new repository on the command line
 
 ```
 touch README.md
@@ -9,7 +9,7 @@ git remote add origin git@github.com:woody1983/hexo.git
 git push -u origin master
 ```
 
-# Push an existing repository from the command line
+### Push an existing repository from the command line
 
 ```
 git remote add origin git@github.com:woody1983/hexo.git

@@ -1,0 +1,57 @@
+title: "LM35使用笔记"
+date: 2013-06-08 23:25
+categories: Arduino
+tags: Arduino
+---
+
+``` c
+/*
+使用LM35来测量室内温度
+
+留意float类型的计算和温度换算公式
+*/
+
+void setup() {
+ 
+  Serial.begin(9600);
+}
+ 
+void loop() {
+ 
+  int n = analogRead(A0);    //读取A0口的电压值
+ 
+  float vol = (n/1024.0) * 5.0;   //使用浮点数存储温度数据，温度数据由电压值换算得到
+  float T = vol*100; 
+ 
+  Serial.print("analogRead A0: ");
+  Serial.print(n);
+   
+  Serial.print(" Volatge: ");
+  Serial.print(vol);
+  
+  Serial.print(" Temperature: ");
+  Serial.println(T);                   //串口输出温度数据
+  delay(2000);                           //等待2秒，控制刷新速度
+
+}
+```
+
+###Analog convert Voltage
+LM35换算公式简化掉 Analog数值*(5/1024) 即可 5 voltage 1024 analog
+
+
+![](http://25.media.tumblr.com/d0f801f032d35b3ff84a0df6c6c2cb63/tumblr_mnbaw9lKc31sst44io1_400.jpg)
+![](http://25.media.tumblr.com/0dae8653daf7cb673d7956f3ecc5ef20/tumblr_mnb63bt0J11sst44io1_400.jpg)
+
+```
+LM35 Temperature Sensor
+和TMP36不太一样 LM35没有默认电流 在没有温度的时候 输出电压是0mv
+
+对比关系还是5v对应analog的1023
+
+1023的analog数值转换成voltage = analog/1024 * 5
+
+1摄氏度 = 10mv so voltage转温度也比较容易一些
+
+open a serial connection to display values Serial.begin(9600);
+```
