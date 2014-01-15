@@ -110,7 +110,7 @@ end
     
     <div class="article-entry" itemprop="articleBody">
       
-        <figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+        <figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -123,12 +123,12 @@ end
 11
 12
 13
-</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">math</span><span class="params">(a,b)</span></span>
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> </span>math(a,b)
     <span class="keyword">yield</span>(a,b)
 <span class="keyword">end</span>
 <span class="comment">#math写成这样子 不跟block是会报错的 因为功能单一 也没必要加上 block_given?</span>
 
-<span class="function"><span class="keyword">def</span> <span class="title">teach_math</span><span class="params">(a,b,&opertion)</span></span>
+<span class="function"><span class="keyword">def</span> </span>teach_math(a,b,&opertion)
     puts math(a,b,&opertion)
 <span class="keyword">end</span>
 
@@ -140,7 +140,7 @@ teach_math(<span class="number">2</span>,<span class="number">3</span>) {|x,y| x
 
 <a id="more"></a>
 
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -180,18 +180,18 @@ teach_math(<span class="number">2</span>,<span class="number">3</span>) {|x,y| x
 
 
 <span class="comment"># 这么写的话  opertion_again就必须是一个proc的对象 使用其自身的call方法来回调</span>
-<span class="function"><span class="keyword">def</span> <span class="title">math</span><span class="params">(a,b,opertion_again)</span></span>
+<span class="function"><span class="keyword">def</span> </span>math(a,b,opertion_again)
     opertion_again.call(a,b)
 <span class="keyword">end</span>
 
-<span class="function"><span class="keyword">def</span> <span class="title">teach_math</span><span class="params">(a, b, &opertion)</span></span>
+<span class="function"><span class="keyword">def</span> </span>teach_math(a, b, &opertion)
     puts math(a,b,opertion)<span class="comment">#在这里就传进去一个proc对象而不是一个当做block的proc</span>
 <span class="keyword">end</span>
 
 teach_math(<span class="number">2</span>,<span class="number">3</span>) { |x,y| x * y } 
 
 <span class="comment">#-------------------Block---&gt;Proc-------------------------------------- </span>
-<span class="function"><span class="keyword">def</span> <span class="title">my_method</span><span class="params">(&the_proc)</span></span>
+<span class="function"><span class="keyword">def</span> </span>my_method(&the_proc)
     the_proc <span class="comment">#去掉了&就变成了一个普通的proc对象并返回出去！</span>
 <span class="keyword">end</span>
 
@@ -201,7 +201,7 @@ cmp.call(<span class="string">"Johnny"</span>)
 
 <span class="comment">#-------------------Proc---&gt;Block-------------------------------------- </span>
 
-<span class="function"><span class="keyword">def</span> <span class="title">my_method</span><span class="params">(greeting)</span></span>
+<span class="function"><span class="keyword">def</span> </span>my_method(greeting)
     puts <span class="string">"<span class="subst">#{greeting}</span>,<span class="subst">#{<span class="keyword">yield</span>}</span>"</span><span class="comment">#看到yield了就意味着这个方法调用的时候需要跟一个block</span>
 <span class="keyword">end</span>
 
@@ -210,7 +210,7 @@ my_proc = proc { <span class="string">"Woody"</span> } <span class="comment">#�
 my_method(<span class="string">"Hello"</span>,&my_proc)<span class="comment">#把Proc当Block ！again!</span>
 </pre></td></tr></table></figure>
 
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -231,23 +231,23 @@ my_method(<span class="string">"Hello"</span>,&my_proc)<span class="comment">#�
 19
 20
 21
-</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">me_method</span><span class="params">()</span></span>
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> </span>me_method()
   <span class="keyword">yield</span>
 <span class="keyword">end</span>
 <span class="comment"># puts my_method { "xXx" }   =&gt; "xXx"</span>
 
-<span class="function"><span class="keyword">def</span> <span class="title">me_method2</span><span class="params">(&my_proc)</span></span>
+<span class="function"><span class="keyword">def</span> </span>me_method2(&my_proc)
   my_proc.call
 <span class="keyword">end</span>
 <span class="comment">#me_method2 { "xXx" }   =&gt; "xXx"</span>
 
 <span class="comment">#当你会把Block和Proc串起来玩的时候  可调用对象的概念应该了解的差不多了</span>
 
-<span class="function"><span class="keyword">def</span> <span class="title">me_method</span><span class="params">()</span></span>
+<span class="function"><span class="keyword">def</span> </span>me_method()
   <span class="keyword">yield</span>
 <span class="keyword">end</span>
 
-<span class="function"><span class="keyword">def</span> <span class="title">me_method2</span><span class="params">(&my_proc)</span></span>
+<span class="function"><span class="keyword">def</span> </span>me_method2(&my_proc)
   me_method(&my_proc)
 <span class="keyword">end</span>
 
@@ -257,8 +257,8 @@ me_method2 { <span class="string">"_why"</span> } <span class="comment"># =&gt; 
 <blockquote>
 <p>这两个方法在调用的时候都需要跟一个block</p>
 </blockquote>
-<h3 id="-5927-62db-">大招</h3>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<h3 id="-">大招</h3>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 </pre></td><td class="code"><pre>[<span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>].map(&<span class="symbol">:to_i</span>)
@@ -269,8 +269,9 @@ me_method2 { <span class="string">"_why"</span> } <span class="comment"># =&gt; 
 <blockquote>
 <p>Reg Braithwaite简单地介绍了to_proc是怎样让 (1..100).inject(&amp;:+) 这样的代码工作的:</p>
 </blockquote>
-<p>&amp; 操作符用来把Proc对象转化成块，或者把块转化成Proc对象。这此例中，它试图把符号 :+ 转换成一个块。此转换过程使用了Ruby内建的强制机制。这个机制会检查我们是否有一个Proc对象。如果没有，它就把#to_proc方法传递到参数中 来生成一个Proc。如果符号 :+ 有#to_proc方法，就调用它。在Ruby 1.9中，它就有一个#to_proc方法。此方法使用了第一个参数，然后返回一个Proc，并把 + 方法和其他参数传递给它。<br>由此可见，&amp;:+ 实际上就是 { |x, y| x + y }</p>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<p>&amp; 操作符用来把Proc对象转化成块，或者把块转化成Proc对象。这此例中，它试图把符号 :+ 转换成一个块。此转换过程使用了Ruby内建的强制机制。这个机制会检查我们是否有一个Proc对象。如果没有，它就把#to_proc方法传递到参数中 来生成一个Proc。如果符号 :+ 有#to_proc方法，就调用它。在Ruby 1.9中，它就有一个#to_proc方法。此方法使用了第一个参数，然后返回一个Proc，并把 + 方法和其他参数传递给它。
+由此可见，&amp;:+ 实际上就是 { |x, y| x + y }</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -286,8 +287,8 @@ me_method2 { <span class="string">"_why"</span> } <span class="comment"># =&gt; 
 <span class="comment">#=&gt; ["Woody", "Johnny"]</span>
 </pre></td></tr></table></figure>
 
-<h3 id="-53e6-4e00-79cd-53ef-8c03-7528-5bf9-8c61-7684-65b9-6cd5-_-method">另一种可调用对象的方法  .method</h3>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<h3 id="-method">另一种可调用对象的方法  .method</h3>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -303,25 +304,25 @@ me_method2 { <span class="string">"_why"</span> } <span class="comment"># =&gt; 
 14
 15
 </pre></td><td class="code"><pre><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span></span>
-    <span class="function"><span class="keyword">def</span> <span class="title">initialize</span><span class="params">(value)</span></span>
+    <span class="function"><span class="keyword">def</span> </span>initialize(value)
         <span class="variable">@name</span> = value
     <span class="keyword">end</span>
     
-    <span class="function"><span class="keyword">def</span> <span class="title">my_method</span></span>
+    <span class="function"><span class="keyword">def</span> </span>my_method
         <span class="variable">@name</span>.capitalize
     <span class="keyword">end</span>
 <span class="keyword">end</span>
     
 object = <span class="constant">MyClass</span>.new(<span class="string">"woody"</span>)
 cmp = object.method <span class="symbol">:my_method</span>
-cmp.<span class="class"><span class="keyword">class</span> <span class="comment">#=&gt; Method</span></span>
+cmp.<span class="keyword">class</span> <span class="comment">#=&gt; Method</span>
 cmp.call <span class="comment">#=&gt; "Woody"</span>
 <span class="comment">#String.instance_methods</span>
 </pre></td></tr></table></figure>
 
 <h3 id="instance_eval">instance_eval</h3>
 <p><code>object#instance_eval</code> 可以在对象的上下文中执行一个Block</p>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -340,7 +341,7 @@ cmp.call <span class="comment">#=&gt; "Woody"</span>
 17
 </pre></td><td class="code"><pre><span class="variable">@setups</span> = []
 <span class="comment"># 初始化</span>
-<span class="function"><span class="keyword">def</span> <span class="title">setup</span><span class="params">(&block)</span></span>
+<span class="function"><span class="keyword">def</span> </span>setup(&block)
   <span class="variable">@setups</span> &lt;&lt; block
 <span class="keyword">end</span>
 
@@ -361,7 +362,7 @@ setup <span class="keyword">do</span>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2013/09/25/ruby-block-proc/" data-id="cp1p4m88umsjal48" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2013/09/25/ruby-block-proc/" data-id="a9hwil2g5simretd" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2013/09/25/ruby-block-proc/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -408,7 +409,7 @@ setup <span class="keyword">do</span>
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arduino/">Arduino</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deploy/">Deploy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IOS/">IOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kettle/">Kettle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Objective-C/">Objective-C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Talks/">Talks</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arduino/">Arduino</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deploy/">Deploy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IOS/">IOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kettle/">Kettle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Objective-C/">Objective-C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RaspberryPi/">RaspberryPi</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Talks/">Talks</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -417,7 +418,7 @@ setup <span class="keyword">do</span>
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Arduino/" style="font-size: 13.33px;">Arduino</a><a href="/tags/Deploy/" style="font-size: 10.00px;">Deploy</a><a href="/tags/Heroku/" style="font-size: 10.00px;">Heroku</a><a href="/tags/IOS/" style="font-size: 10.00px;">IOS</a><a href="/tags/JS/" style="font-size: 10.00px;">JS</a><a href="/tags/Kettle/" style="font-size: 10.00px;">Kettle</a><a href="/tags/Linux/" style="font-size: 10.00px;">Linux</a><a href="/tags/MySQL/" style="font-size: 16.67px;">MySQL</a><a href="/tags/Objective-C/" style="font-size: 10.00px;">Objective-C</a><a href="/tags/Ruby/" style="font-size: 20.00px;">Ruby</a><a href="/tags/Talks/" style="font-size: 10.00px;">Talks</a>
+      <a href="/tags/Arduino/" style="font-size: 12.50px;">Arduino</a><a href="/tags/Deploy/" style="font-size: 10.00px;">Deploy</a><a href="/tags/Heroku/" style="font-size: 10.00px;">Heroku</a><a href="/tags/IOS/" style="font-size: 10.00px;">IOS</a><a href="/tags/JS/" style="font-size: 10.00px;">JS</a><a href="/tags/Kettle/" style="font-size: 10.00px;">Kettle</a><a href="/tags/Linux/" style="font-size: 15.00px;">Linux</a><a href="/tags/MySQL/" style="font-size: 17.50px;">MySQL</a><a href="/tags/Objective-C/" style="font-size: 10.00px;">Objective-C</a><a href="/tags/RaspberryPi/" style="font-size: 12.50px;">RaspberryPi</a><a href="/tags/Ruby/" style="font-size: 20.00px;">Ruby</a><a href="/tags/Talks/" style="font-size: 10.00px;">Talks</a>
     </div>
   </div>
 
@@ -426,7 +427,7 @@ setup <span class="keyword">do</span>
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">January 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09">September 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08">August 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05">May 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/05">May 2010</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">January 2014</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09">September 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08">August 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05">May 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/05">May 2010</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -438,23 +439,23 @@ setup <span class="keyword">do</span>
       <ul>
         
           <li>
+            <a href="/2014/01/15/raspberrypi下安装mysql56/">RaspberryPi下编译安装MySQL5.6</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/15/mysql-replication/">MYSQL Replication学习总结</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/10/mount-usb-disk-on-raspberry-pi/">Mount USB-disk on Raspberry-Pi</a>
+          </li>
+        
+          <li>
             <a href="/2014/01/10/fix-hexo-archive-display-issue/">Fix Hexo Archive display issue</a>
           </li>
         
           <li>
-            <a href="/2014/01/10/mysql-replication/">MYSQL Replication学习总结</a>
-          </li>
-        
-          <li>
             <a href="/2014/01/09/mysql-error-1372-(hy000)/">MYSQL ERROR 1372 (HY000)</a>
-          </li>
-        
-          <li>
-            <a href="/2014/01/09/why-used-cmake/">为什么用Cmake？</a>
-          </li>
-        
-          <li>
-            <a href="/2014/01/07/linux-install-mysql55/">Linux Install MySQL5.5</a>
           </li>
         
       </ul>

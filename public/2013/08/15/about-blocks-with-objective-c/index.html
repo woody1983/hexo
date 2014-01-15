@@ -19,7 +19,8 @@ if(someBOOLVariable){
 }//如果someBOOLVariable是YES {}里的代码将会被执行
 
 
-其实我们想的是能够括号里的代码能够脱离任何特定功能 比如触发条件Blocks是一组代码 意味着 他可以被传递到方法或像NSArray或NSDiction">
+其实我们想的是能够括号里的代码能够脱离任何特定功能 比如触发条件
+Blocks是一组代码 意味着 他可以被传递到方法或像NSArray或NSDictio">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Semiscon" type="application/atom+xml">
@@ -97,18 +98,19 @@ if(someBOOLVariable){
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="-4e00-822c-7684-505a-6cd5-">一般的做法</h4>
-<figure class="highlight lang-objective-c"><table><tr><td class="gutter"><pre>1
+        <h4 id="-">一般的做法</h4>
+<figure class="highlight objective-c"><table><tr><td class="gutter"><pre>1
 2
 3
 </pre></td><td class="code"><pre><span class="keyword">if</span>(someBOOLVariable){
-    NSLog(<span class="string">@"Hello from inside the if statement"</span>);
+    <span class="built_in">NSLog</span>(@<span class="string">"Hello from inside the if statement"</span>);
 }<span class="comment">//如果someBOOLVariable是YES {}里的代码将会被执行</span>
 </pre></td></tr></table></figure>
 
-<p>其实我们想的是能够括号里的代码能够脱离任何特定功能 比如触发条件<br>Blocks是一组代码 意味着 他可以被传递到方法或像NSArray或NSDictionary中集合</p>
-<h4 id="-5e-_-7b-7d-5757-53ef-4ee5-521b-5efa-">^ {}块可以创建</h4>
-<figure class="highlight lang-objective-c"><table><tr><td class="gutter"><pre>1
+<p>其实我们想的是能够括号里的代码能够脱离任何特定功能 比如触发条件
+Blocks是一组代码 意味着 他可以被传递到方法或像NSArray或NSDictionary中集合</p>
+<h4 id="-">^ {}块可以创建</h4>
+<figure class="highlight objective-c"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -116,39 +118,39 @@ if(someBOOLVariable){
 6
 7
 </pre></td><td class="code"><pre>^{
-    NSLog(@<span class="string">"Hello from inside the block"</span>)<span class="comment">;</span>
-}<span class="comment">;</span>
+    <span class="built_in">NSLog</span>(@<span class="string">"Hello from inside the block"</span>);
+};
 
 ^LogMessage = ^ {
-    NSLog(@“你好块里面的”)<span class="comment">;</span>
-}<span class="comment">;</span>
-</pre></td></tr></table></figure>
-
-<p><a id="more"></a></p>
-<h3 id="-5982-679c-4e0d-60f3-5176-8fd4-56de-4efb-4f55-503c-_-5c31-52a0-4e00-4e2a-void">如果不想其返回任何值 就加一个void</h3>
-<figure class="highlight lang-objective-c"><table><tr><td class="gutter"><pre>1
-2
-3
-</pre></td><td class="code"><pre><span class="keyword">void</span> ^logMessage = ^{
-    NSLog(<span class="string">@"Hello from inside the block"</span>);
+    <span class="built_in">NSLog</span>(@“你好块里面的”);
 };
 </pre></td></tr></table></figure>
 
-<h2 id="-7ec3-4e60-_-521b-5efa-4e00-4e2a-5757-_-4e0d-63a5-53d7-548c-4e0d-8fd4-56de-4efb-4f55-4fe1-606f-">练习- 创建一个块  不接受和不返回任何信息</h2>
-<figure class="highlight lang-objective-c"><table><tr><td class="gutter"><pre>1
+<p><a id="more"></a></p>
+<h3 id="-void">如果不想其返回任何值 就加一个void</h3>
+<figure class="highlight objective-c"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre><span class="keyword">void</span> ^logMessage = ^{
+    <span class="built_in">NSLog</span>(@<span class="string">"Hello from inside the block"</span>);
+};
+</pre></td></tr></table></figure>
+
+<h2 id="-">练习- 创建一个块  不接受和不返回任何信息</h2>
+<figure class="highlight objective-c"><table><tr><td class="gutter"><pre>1
 2
 3
 4
 5
-</pre></td><td class="code"><pre><span class="function"><span class="title">void</span> <span class="params">(^my<span class="variable">FirstBlock</span>)</span><span class="params">(void)</span> = ^{
-    NSL<span class="title">og</span><span class="params">(@<span class="string">"Hello from inside the block"</span>)</span>;
+</pre></td><td class="code"><pre><span class="keyword">void</span> (^myFirstBlock)(<span class="keyword">void</span>) = ^{
+    <span class="built_in">NSLog</span>(@<span class="string">"Hello from inside the block"</span>);
 };
 
-<span class="title">myFirstBlock</span><span class="params">()</span>;</span>
+myFirstBlock();
 </pre></td></tr></table></figure>
 
-<h2 id="Blocks_with_arguments">Blocks with arguments</h2>
-<figure class="highlight lang-objective-c"><table><tr><td class="gutter"><pre>1
+<h2 id="blocks-with-arguments">Blocks with arguments</h2>
+<figure class="highlight objective-c"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -172,49 +174,49 @@ if(someBOOLVariable){
 22
 23
 </pre></td><td class="code"><pre>^(NSUInteger num1, NSUInteger num2){
-    NSLog(<span class="variable">@"</span>The sum of the numbers is <span class="variable">%lu</span><span class="string">", num1 + num2);
+    <span class="built_in">NSLog</span>(@<span class="string">"The sum of the numbers is %lu"</span>, num1 + num2);
 };
 
-void (^sumNumbers)(NSUInteger, NSUInteger) = ^(NSUInteger num1, NSUInteger num2){
-    NSLog(<span class="variable">@"</span>The sum of the numbers is <span class="variable">%lu</span>"</span>, num1 + num2);
+<span class="keyword">void</span> (^sumNumbers)(NSUInteger, NSUInteger) = ^(NSUInteger num1, NSUInteger num2){
+    <span class="built_in">NSLog</span>(@<span class="string">"The sum of the numbers is %lu"</span>, num1 + num2);
 };
 
-<span class="regexp">/*
+<span class="comment">/*
  sumNumbers(45, 89);
  sumNumbers(18, 56);
  */</span>
 
-void (^logCount)(NSArray <span class="variable">*)</span> = ^(NSArray <span class="variable">*array</span>){
-    NSLog(<span class="variable">@"</span>There are <span class="variable">%lu</span> objects in this array<span class="string">", [array count]);
+<span class="keyword">void</span> (^logCount)(<span class="built_in">NSArray</span> *) = ^(<span class="built_in">NSArray</span> *array){
+    <span class="built_in">NSLog</span>(@<span class="string">"There are %lu objects in this array"</span>, [array count]);
 };
 
-logCount(<span class="variable">@[</span><span class="variable">@"</span>Mr."</span>, <span class="variable">@"</span>Higgie<span class="string">"]);
-logCount(<span class="variable">@[</span><span class="variable">@"</span>Mr."</span>, <span class="variable">@"</span>Jony<span class="string">", <span class="variable">@"</span>Ive"</span>, <span class="variable">@"</span>Higgie<span class="string">"]);
-/*
+logCount(@[@<span class="string">"Mr."</span>, @<span class="string">"Higgie"</span>]);
+logCount(@[@<span class="string">"Mr."</span>, @<span class="string">"Jony"</span>, @<span class="string">"Ive"</span>, @<span class="string">"Higgie"</span>]);
+<span class="comment">/*
  challenge[2]: There are 2 objects in this array
  challenge[2]: There are 4 objects in this array
- <span class="variable">*/</span></span>
+ */</span>
 </pre></td></tr></table></figure>
 
-<h3 id="-7ec3-4e60-">练习</h3>
-<figure class="highlight lang-objective-c"><table><tr><td class="gutter"><pre>1
+<h3 id="-">练习</h3>
+<figure class="highlight objective-c"><table><tr><td class="gutter"><pre>1
 2
 3
 4
 5
 6
-</pre></td><td class="code"><pre><span class="function"><span class="title">void</span> <span class="params">(^my<span class="variable">FirstBlock</span>)</span><span class="params">(<span class="variable">NSString</span> *)</span> = ^<span class="params">(<span class="variable">NSString</span> *str1)</span>{
-    NSL<span class="title">og</span><span class="params">(@<span class="string">"%@ from inside the block"</span>,str1)</span>;
+</pre></td><td class="code"><pre><span class="keyword">void</span> (^myFirstBlock)(<span class="built_in">NSString</span> *) = ^(<span class="built_in">NSString</span> *str1){
+    <span class="built_in">NSLog</span>(@<span class="string">"%@ from inside the block"</span>,str1);
 };
 
-<span class="title">myFirstBlock</span><span class="params">(@<span class="string">"Hello"</span>)</span>;
-<span class="title">myFirstBlock</span><span class="params">(@<span class="string">"World"</span>)</span>;</span>
+myFirstBlock(@<span class="string">"Hello"</span>);
+myFirstBlock(@<span class="string">"World"</span>);
 </pre></td></tr></table></figure>
 
-<h2 id="Enumerate_with_blocks">Enumerate with blocks</h2>
+<h2 id="enumerate-with-blocks">Enumerate with blocks</h2>
 <p> 绝大多数的时候，你会不会块分配给一个变量，调用它自己。相反，你会传递一个块作为参数的消息，像<code>enumerateObjectsUsingBlock：NSArray</code>的消息。</p>
 <p> <code>enumerateObjectsUsingBlock：</code>可以用来作为快速枚举的替代品，因为它基本上是同样的事情：执行一个代码块，在一个数组中的每个对象。但是，而不是使用特殊的语法，它使用正常短信的发送和块。</p>
-<figure class="highlight lang-objective-c"><table><tr><td class="gutter"><pre>1
+<figure class="highlight objective-c"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -240,39 +242,39 @@ logCount(<span class="variable">@[</span><span class="variable">@"</span>Mr."</s
 24
 25
 26
-</pre></td><td class="code"><pre>NSArray <span class="variable">*newHats</span> = <span class="variable">@[</span><span class="variable">@"</span>Cowboy<span class="string">", <span class="variable">@"</span>Conductor"</span>, <span class="variable">@"</span>Baseball<span class="string">",
-<span class="variable">@"</span>Beanie"</span>, <span class="variable">@"</span>Beret<span class="string">", <span class="variable">@"</span>Fez"</span>];
+</pre></td><td class="code"><pre><span class="built_in">NSArray</span> *newHats = @[@<span class="string">"Cowboy"</span>, @<span class="string">"Conductor"</span>, @<span class="string">"Baseball"</span>,
+@<span class="string">"Beanie"</span>, @<span class="string">"Beret"</span>, @<span class="string">"Fez"</span>];
 
-<span class="keyword">for</span> (NSString <span class="variable">*hat</span> in newHats) {
-    NSLog(<span class="variable">@"</span>Trying on hat <span class="variable">%@</span><span class="string">", hat);
+<span class="keyword">for</span> (<span class="built_in">NSString</span> *hat in newHats) {
+    <span class="built_in">NSLog</span>(@<span class="string">"Trying on hat %@"</span>, hat);
 }
 
 
 
-void (^enumeratingBlock)(NSString <span class="variable">*,</span> NSUInteger, BOOL <span class="variable">*)</span> =
-^(NSString <span class="variable">*word</span>, NSUInteger index, BOOL <span class="variable">*stop</span>){
-    NSLog(<span class="variable">@"</span><span class="variable">%@</span> is a funny word"</span>, word);
+<span class="keyword">void</span> (^enumeratingBlock)(<span class="built_in">NSString</span> *, NSUInteger, <span class="built_in">BOOL</span> *) =
+^(<span class="built_in">NSString</span> *word, NSUInteger index, <span class="built_in">BOOL</span> *stop){
+    <span class="built_in">NSLog</span>(@<span class="string">"%@ is a funny word"</span>, word);
 };
 
 [funnyWords enumerateObjectsUsingBlock:enumeratingBlock];
 
 
 
-NSArray <span class="variable">*newHats</span> = <span class="variable">@[</span><span class="variable">@"</span>Cowboy<span class="string">", <span class="variable">@"</span>Conductor"</span>, <span class="variable">@"</span>Baseball<span class="string">",
-<span class="variable">@"</span>Beanie"</span>, <span class="variable">@"</span>Beret<span class="string">", <span class="variable">@"</span>Fez"</span>];
-void (^enumeratingBlock)(NSString <span class="variable">*,</span> NSUInteger, BOOL <span class="variable">*)</span> =
-^(NSString <span class="variable">*hat</span>, NSUInteger <span class="keyword">index</span>, BOOL <span class="variable">*stop</span>){
-    NSLog(<span class="variable">@"</span><span class="variable">%@</span> is a funny word<span class="string">", hat);
+<span class="built_in">NSArray</span> *newHats = @[@<span class="string">"Cowboy"</span>, @<span class="string">"Conductor"</span>, @<span class="string">"Baseball"</span>,
+@<span class="string">"Beanie"</span>, @<span class="string">"Beret"</span>, @<span class="string">"Fez"</span>];
+<span class="keyword">void</span> (^enumeratingBlock)(<span class="built_in">NSString</span> *, NSUInteger, <span class="built_in">BOOL</span> *) =
+^(<span class="built_in">NSString</span> *hat, NSUInteger index, <span class="built_in">BOOL</span> *stop){
+    <span class="built_in">NSLog</span>(@<span class="string">"%@ is a funny word"</span>, hat);
 };
 
-[newHats enumerateObjectsUsingBlock:enumeratingBlock];</span>
+[newHats enumerateObjectsUsingBlock:enumeratingBlock];
 </pre></td></tr></table></figure>
 
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2013/08/15/about-blocks-with-objective-c/" data-id="9nutb275ya98qx35" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2013/08/15/about-blocks-with-objective-c/" data-id="nug49f63ghi1dnri" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2013/08/15/about-blocks-with-objective-c/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -319,7 +321,7 @@ void (^enumeratingBlock)(NSString <span class="variable">*,</span> NSUInteger, B
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arduino/">Arduino</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deploy/">Deploy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IOS/">IOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kettle/">Kettle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Objective-C/">Objective-C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Talks/">Talks</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arduino/">Arduino</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deploy/">Deploy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IOS/">IOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kettle/">Kettle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Objective-C/">Objective-C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RaspberryPi/">RaspberryPi</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Talks/">Talks</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -328,7 +330,7 @@ void (^enumeratingBlock)(NSString <span class="variable">*,</span> NSUInteger, B
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Arduino/" style="font-size: 13.33px;">Arduino</a><a href="/tags/Deploy/" style="font-size: 10.00px;">Deploy</a><a href="/tags/Heroku/" style="font-size: 10.00px;">Heroku</a><a href="/tags/IOS/" style="font-size: 10.00px;">IOS</a><a href="/tags/JS/" style="font-size: 10.00px;">JS</a><a href="/tags/Kettle/" style="font-size: 10.00px;">Kettle</a><a href="/tags/Linux/" style="font-size: 10.00px;">Linux</a><a href="/tags/MySQL/" style="font-size: 16.67px;">MySQL</a><a href="/tags/Objective-C/" style="font-size: 10.00px;">Objective-C</a><a href="/tags/Ruby/" style="font-size: 20.00px;">Ruby</a><a href="/tags/Talks/" style="font-size: 10.00px;">Talks</a>
+      <a href="/tags/Arduino/" style="font-size: 12.50px;">Arduino</a><a href="/tags/Deploy/" style="font-size: 10.00px;">Deploy</a><a href="/tags/Heroku/" style="font-size: 10.00px;">Heroku</a><a href="/tags/IOS/" style="font-size: 10.00px;">IOS</a><a href="/tags/JS/" style="font-size: 10.00px;">JS</a><a href="/tags/Kettle/" style="font-size: 10.00px;">Kettle</a><a href="/tags/Linux/" style="font-size: 15.00px;">Linux</a><a href="/tags/MySQL/" style="font-size: 17.50px;">MySQL</a><a href="/tags/Objective-C/" style="font-size: 10.00px;">Objective-C</a><a href="/tags/RaspberryPi/" style="font-size: 12.50px;">RaspberryPi</a><a href="/tags/Ruby/" style="font-size: 20.00px;">Ruby</a><a href="/tags/Talks/" style="font-size: 10.00px;">Talks</a>
     </div>
   </div>
 
@@ -337,7 +339,7 @@ void (^enumeratingBlock)(NSString <span class="variable">*,</span> NSUInteger, B
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">January 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09">September 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08">August 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05">May 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/05">May 2010</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">January 2014</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09">September 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08">August 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05">May 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/05">May 2010</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -349,23 +351,23 @@ void (^enumeratingBlock)(NSString <span class="variable">*,</span> NSUInteger, B
       <ul>
         
           <li>
+            <a href="/2014/01/15/raspberrypi下安装mysql56/">RaspberryPi下编译安装MySQL5.6</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/15/mysql-replication/">MYSQL Replication学习总结</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/10/mount-usb-disk-on-raspberry-pi/">Mount USB-disk on Raspberry-Pi</a>
+          </li>
+        
+          <li>
             <a href="/2014/01/10/fix-hexo-archive-display-issue/">Fix Hexo Archive display issue</a>
           </li>
         
           <li>
-            <a href="/2014/01/10/mysql-replication/">MYSQL Replication学习总结</a>
-          </li>
-        
-          <li>
             <a href="/2014/01/09/mysql-error-1372-(hy000)/">MYSQL ERROR 1372 (HY000)</a>
-          </li>
-        
-          <li>
-            <a href="/2014/01/09/why-used-cmake/">为什么用Cmake？</a>
-          </li>
-        
-          <li>
-            <a href="/2014/01/07/linux-install-mysql55/">Linux Install MySQL5.5</a>
           </li>
         
       </ul>

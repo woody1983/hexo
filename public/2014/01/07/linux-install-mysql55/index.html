@@ -116,7 +116,7 @@ tar zxf mysql-5.5.11.tar.g">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="First-2c-_Install_Cmake">First, Install Cmake</h2>
+        <h2 id="first-install-cmake">First, Install Cmake</h2>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
@@ -129,7 +129,7 @@ tar zxf mysql-5.5.11.tar.g">
 <span class="variable">$sudo</span> make install
 </pre></td></tr></table></figure>
 
-<h2 id="Make_MySQL">Make MySQL</h2>
+<h2 id="make-mysql">Make MySQL</h2>
 <ul>
 <li><a href="http://www.cmake.org/" target="_blank">CMake</a></li>
 <li><a href="http://www.cmake.org/cmake/help/install.html" target="_blank">CMake How to Install</a></li>
@@ -144,17 +144,17 @@ tar zxf mysql-5.5.11.tar.g">
 6
 7
 8
-</pre></td><td class="code"><pre><span class="comment">tar</span> <span class="comment">zxf</span> <span class="comment">mysql</span><span class="literal">-</span><span class="comment">5</span><span class="string">.</span><span class="comment">5</span><span class="string">.</span><span class="comment">11</span><span class="string">.</span><span class="comment">tar</span><span class="string">.</span><span class="comment">g</span>
-<span class="comment">cd</span> <span class="comment">mysql</span><span class="literal">-</span><span class="comment">5</span><span class="string">.</span><span class="comment">5</span><span class="string">.</span><span class="comment">11</span>
-<span class="comment">CFLAGS="</span><span class="literal">-</span><span class="comment">O3"</span> <span class="comment">CXX=gcc</span>
-<span class="comment">CXXFLAGS="</span><span class="literal">-</span><span class="comment">O3</span> <span class="literal">-</span><span class="comment">felide</span><span class="literal">-</span><span class="comment">constructors</span> <span class="literal">-</span><span class="comment">fno</span><span class="literal">-</span><span class="comment">exceptions</span> <span class="literal">-</span><span class="comment">fno</span><span class="literal">-</span><span class="comment">rtti"</span>
-<span class="comment">cmake</span> <span class="string">.</span> <span class="literal">-</span><span class="comment">LH|more</span> 
-<span class="comment">cmake</span> <span class="string">.</span> <span class="literal">-</span><span class="comment">DCMAKE_INSTALL_PREFIX=/home/mysql/mysql</span> <span class="literal">-</span><span class="comment">DEXTRA_CHARSETS=all</span>
-<span class="comment">make</span> <span class="literal">-</span><span class="comment">j</span> <span class="comment">8</span> 
-<span class="comment">make</span> <span class="comment">install</span>
+</pre></td><td class="code"><pre>tar zxf mysql<span class="subst">-</span><span class="number">5.5</span><span class="number">.11</span><span class="built_in">.</span>tar<span class="built_in">.</span>g
+cd mysql<span class="subst">-</span><span class="number">5.5</span><span class="number">.11</span>
+CFLAGS<span class="subst">=</span><span class="string">"-O3"</span> CXX<span class="subst">=</span>gcc
+CXXFLAGS<span class="subst">=</span><span class="string">"-O3 -felide-constructors -fno-exceptions -fno-rtti"</span>
+cmake <span class="built_in">.</span> <span class="attribute">-LH</span><span class="subst">|</span>more 
+cmake <span class="built_in">.</span> <span class="attribute">-DCMAKE_INSTALL_PREFIX</span><span class="subst">=</span>/home/mysql/mysql <span class="attribute">-DEXTRA_CHARSETS</span><span class="subst">=</span><span class="literal">all</span>
+make <span class="attribute">-j</span> <span class="number">8</span> 
+make install
 </pre></td></tr></table></figure>
 
-<h2 id="Step_by_step">Step by step</h2>
+<h2 id="step-by-step">Step by step</h2>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
@@ -173,14 +173,14 @@ chown -R mysql:dba /home/mysql/mysql-<span class="number">5.5</span><span class=
 6
 7
 8
-</pre></td><td class="code"><pre><span class="comment">su</span> <span class="literal">-</span> <span class="comment">mysql</span>
-<span class="comment">tar</span> <span class="comment">zxf</span> <span class="comment">mysql</span><span class="literal">-</span><span class="comment">5</span><span class="string">.</span><span class="comment">5</span><span class="string">.</span><span class="comment">11</span><span class="string">.</span><span class="comment">tar</span><span class="string">.</span><span class="comment">gz</span>
-<span class="comment">cd</span> <span class="comment">mysql</span><span class="literal">-</span><span class="comment">5</span><span class="string">.</span><span class="comment">5</span><span class="string">.</span><span class="comment">11</span>
-<span class="comment">CFLAGS="</span><span class="literal">-</span><span class="comment">O3"</span> <span class="comment">CXX=gcc</span> 
-<span class="comment">CXXFLAGS="</span><span class="literal">-</span><span class="comment">O3</span> <span class="literal">-</span><span class="comment">felide</span><span class="literal">-</span><span class="comment">constructors</span> <span class="literal">-</span><span class="comment">fno</span><span class="literal">-</span><span class="comment">exceptions</span> <span class="literal">-</span><span class="comment">fno</span><span class="literal">-</span><span class="comment">rtti"</span>
-<span class="comment">cmake</span> <span class="string">.</span> <span class="literal">-</span><span class="comment">LH|more</span>        
-<span class="comment">cmake</span> <span class="string">.</span> <span class="literal">-</span><span class="comment">DCMAKE_INSTALL_PREFIX=/home/mysql/mysql</span> <span class="literal">-</span><span class="comment">DEXTRA_CHARSETS=all</span>
-<span class="comment">make</span> <span class="literal">-</span><span class="comment">j</span> <span class="comment">8</span> <span class="comment">&&</span> <span class="comment">make</span> <span class="comment">install</span>
+</pre></td><td class="code"><pre>su <span class="subst">-</span> mysql
+tar zxf mysql<span class="subst">-</span><span class="number">5.5</span><span class="number">.11</span><span class="built_in">.</span>tar<span class="built_in">.</span>gz
+cd mysql<span class="subst">-</span><span class="number">5.5</span><span class="number">.11</span>
+CFLAGS<span class="subst">=</span><span class="string">"-O3"</span> CXX<span class="subst">=</span>gcc 
+CXXFLAGS<span class="subst">=</span><span class="string">"-O3 -felide-constructors -fno-exceptions -fno-rtti"</span>
+cmake <span class="built_in">.</span> <span class="attribute">-LH</span><span class="subst">|</span>more        
+cmake <span class="built_in">.</span> <span class="attribute">-DCMAKE_INSTALL_PREFIX</span><span class="subst">=</span>/home/mysql/mysql <span class="attribute">-DEXTRA_CHARSETS</span><span class="subst">=</span><span class="literal">all</span>
+make <span class="attribute">-j</span> <span class="number">8</span> <span class="subst">&&</span> make install
 </pre></td></tr></table></figure>
 
 <h3 id="my-cnf">my.cnf</h3>
@@ -196,21 +196,21 @@ chown -R mysql:dba /home/mysql/mysql-<span class="number">5.5</span><span class=
 10
 11
 12
-</pre></td><td class="code"><pre><span class="title">cd</span> /home/mysql/mysql
-<span class="title">su</span> - root
-<span class="title">cp</span> mysql/share/mysql/my-medium.cnf /etc/my.cnf
-<span class="title">chown</span> -<span class="type">R</span> mysql:dba /etc/my.cnf
+</pre></td><td class="code"><pre>cd /home/mysql/mysql
+su - root
+cp mysql/share/mysql/<span class="keyword">my</span>-medium.cnf /etc/<span class="keyword">my</span>.cnf
+chown -R mysql:dba /etc/<span class="keyword">my</span>.cnf
 
-<span class="title">su</span> - mysql
-<span class="title">vi</span> /etc/my.cnf
-<span class="title">basedir</span> = /home/mysql/mysql
-<span class="title">datadir</span> = /home/mysql/mysql/<span class="keyword">data</span>
-<span class="title">socket</span> = /home/mysql/mysql/run/mysql.sock
-<span class="title">log</span>-error = /home/mysql/mysql/log/alert.log
-<span class="title">log_slow_queries</span> = /home/mysql/mysql/log/slow.log
+su - mysql
+vi /etc/<span class="keyword">my</span>.cnf
+basedir = /home/mysql/mysql
+datadir = /home/mysql/mysql/data
+socket = /home/mysql/mysql/<span class="command">run</span>/mysql.sock
+<span class="command">log</span>-<span class="keyword">error</span> = /home/mysql/mysql/<span class="command">log</span>/alert.<span class="command">log</span>
+log_slow_queries = /home/mysql/mysql/<span class="command">log</span>/slow.<span class="command">log</span>
 </pre></td></tr></table></figure>
 
-<h3 id="Start_MySQL">Start MySQL</h3>
+<h3 id="start-mysql">Start MySQL</h3>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
@@ -226,7 +226,7 @@ chown -R mysql:dba /home/mysql/mysql-<span class="number">5.5</span><span class=
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/01/07/linux-install-mysql55/" data-id="2rugxbjqwvw22myd" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2014/01/07/linux-install-mysql55/" data-id="20vinttcrxcrvrxp" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2014/01/07/linux-install-mysql55/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -273,7 +273,7 @@ chown -R mysql:dba /home/mysql/mysql-<span class="number">5.5</span><span class=
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arduino/">Arduino</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deploy/">Deploy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IOS/">IOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kettle/">Kettle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Objective-C/">Objective-C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Talks/">Talks</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arduino/">Arduino</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deploy/">Deploy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IOS/">IOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kettle/">Kettle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Objective-C/">Objective-C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RaspberryPi/">RaspberryPi</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Talks/">Talks</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -282,7 +282,7 @@ chown -R mysql:dba /home/mysql/mysql-<span class="number">5.5</span><span class=
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Arduino/" style="font-size: 13.33px;">Arduino</a><a href="/tags/Deploy/" style="font-size: 10.00px;">Deploy</a><a href="/tags/Heroku/" style="font-size: 10.00px;">Heroku</a><a href="/tags/IOS/" style="font-size: 10.00px;">IOS</a><a href="/tags/JS/" style="font-size: 10.00px;">JS</a><a href="/tags/Kettle/" style="font-size: 10.00px;">Kettle</a><a href="/tags/Linux/" style="font-size: 10.00px;">Linux</a><a href="/tags/MySQL/" style="font-size: 16.67px;">MySQL</a><a href="/tags/Objective-C/" style="font-size: 10.00px;">Objective-C</a><a href="/tags/Ruby/" style="font-size: 20.00px;">Ruby</a><a href="/tags/Talks/" style="font-size: 10.00px;">Talks</a>
+      <a href="/tags/Arduino/" style="font-size: 12.50px;">Arduino</a><a href="/tags/Deploy/" style="font-size: 10.00px;">Deploy</a><a href="/tags/Heroku/" style="font-size: 10.00px;">Heroku</a><a href="/tags/IOS/" style="font-size: 10.00px;">IOS</a><a href="/tags/JS/" style="font-size: 10.00px;">JS</a><a href="/tags/Kettle/" style="font-size: 10.00px;">Kettle</a><a href="/tags/Linux/" style="font-size: 15.00px;">Linux</a><a href="/tags/MySQL/" style="font-size: 17.50px;">MySQL</a><a href="/tags/Objective-C/" style="font-size: 10.00px;">Objective-C</a><a href="/tags/RaspberryPi/" style="font-size: 12.50px;">RaspberryPi</a><a href="/tags/Ruby/" style="font-size: 20.00px;">Ruby</a><a href="/tags/Talks/" style="font-size: 10.00px;">Talks</a>
     </div>
   </div>
 
@@ -291,7 +291,7 @@ chown -R mysql:dba /home/mysql/mysql-<span class="number">5.5</span><span class=
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">January 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09">September 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08">August 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05">May 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/05">May 2010</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">January 2014</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09">September 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08">August 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05">May 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/05">May 2010</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -303,23 +303,23 @@ chown -R mysql:dba /home/mysql/mysql-<span class="number">5.5</span><span class=
       <ul>
         
           <li>
+            <a href="/2014/01/15/raspberrypi下安装mysql56/">RaspberryPi下编译安装MySQL5.6</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/15/mysql-replication/">MYSQL Replication学习总结</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/10/mount-usb-disk-on-raspberry-pi/">Mount USB-disk on Raspberry-Pi</a>
+          </li>
+        
+          <li>
             <a href="/2014/01/10/fix-hexo-archive-display-issue/">Fix Hexo Archive display issue</a>
           </li>
         
           <li>
-            <a href="/2014/01/10/mysql-replication/">MYSQL Replication学习总结</a>
-          </li>
-        
-          <li>
             <a href="/2014/01/09/mysql-error-1372-(hy000)/">MYSQL ERROR 1372 (HY000)</a>
-          </li>
-        
-          <li>
-            <a href="/2014/01/09/why-used-cmake/">为什么用Cmake？</a>
-          </li>
-        
-          <li>
-            <a href="/2014/01/07/linux-install-mysql55/">Linux Install MySQL5.5</a>
           </li>
         
       </ul>

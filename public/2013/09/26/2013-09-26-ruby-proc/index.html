@@ -104,27 +104,28 @@ Closures
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Basice">Basice</h3>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+        <h3 id="basice">Basice</h3>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
 5
-</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">m_method</span><span class="params">(a,b)</span></span>
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> </span>m_method(a,b)
   a + <span class="keyword">yield</span>(a,b)
 <span class="keyword">end</span> 
 
 m_method(<span class="number">1</span>,<span class="number">2</span>) {|x,y| (x+y)*<span class="number">3</span>}
 </pre></td></tr></table></figure>
 
-<h4 id="When_you_run_m-3c-em-3e-method_-2c-then_yield_is_should_be_excute-2c-_and_include_-7b-_code-3c-2f-em-3e-7d-">When you run m<em>method ,then yield is should be excute, and include {_code</em>}</h4>
-<h3 id="Closures">Closures</h3>
+<h4 id="when-you-run-m_method-then-yield-is-should-be-excute-and-include-_code_-">When you run m<em>method ,then yield is should be excute, and include {_code</em>}</h4>
+<h3 id="closures">Closures</h3>
 <blockquote>
-<p>这句话蛮好 : 代码要想运行 需要执行环境   局部变量 全局变量 self 等  但Block中 既有代码又有绑定 可以立即运行<br>创建Block的时候 Block会自动获取局部的绑定 作用域class def module中的除外。</p>
+<p>这句话蛮好 : 代码要想运行 需要执行环境   局部变量 全局变量 self 等  但Block中 既有代码又有绑定 可以立即运行
+创建Block的时候 Block会自动获取局部的绑定 作用域class def module中的除外。</p>
 </blockquote>
 <p>一个方法中已经绑定了一个x变量 但调用Block的时候获取了def以外的一个名字也叫x的绑定 并用在自己的Block中 运行该方法时 回调Block的时候会将这个x的绑定直接带进原方法中 </p>
-<h4 id="-53e6-5916-5c31-7b97-539f-65b9-6cd5-4e2d-5df2-7ecf-7ed1-5b9a-4e86-x-53d8-91cf-_-5982-679c-Block-6ca1-6709-83b7-53d6-5230-x-7684-65f6-5019-_-76f4-63a5-8fd0-884c-8be5-65b9-6cd5-_-4f1a-62a5-9519-8bf4-627e-4e0d-5230-x">另外就算原方法中已经绑定了x变量 如果Block没有获取到x的时候 直接运行该方法 会报错说找不到x</h4>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<h4 id="-x-block-x-x">另外就算原方法中已经绑定了x变量 如果Block没有获取到x的时候 直接运行该方法 会报错说找不到x</h4>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -138,7 +139,7 @@ m_method(<span class="number">1</span>,<span class="number">2</span>) {|x,y| (x+
 12
 13
 14
-</pre></td><td class="code"><pre>   <span class="function"><span class="keyword">def</span> <span class="title">my_method</span> </span>
+</pre></td><td class="code"><pre>   <span class="function"><span class="keyword">def</span> </span>my_method 
 ..   x=<span class="string">"Hello"</span> 
 ..   <span class="keyword">yield</span>(<span class="string">"woody"</span>) 
 ..   <span class="keyword">end</span>
@@ -156,9 +157,9 @@ m_method(<span class="number">1</span>,<span class="number">2</span>) {|x,y| (x+
 
 <a id="more"></a>
 
-<h3 id="Scope_Gate">Scope Gate</h3>
-<h4 id="-5168-5c40-53d8-91cf-_-24-5f00-5934-_-4efb-4f55-4f5c-7528-57df-90fd-53ef-4ee5-8bbf-95ee-ff01-4f46-662f-4f60-4f9d-7136-53ef-4ee5-7528-_-9876-7ea7-5b9e-4f8b-53d8-91cf-40-_-6765-66ff-4ee3-5168-5c40-53d8-91cf-">全局变量 $开头 任何作用域都可以访问！但是你依然可以用  顶级实例变量@ 来替代全局变量</h4>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<h3 id="scope-gate">Scope Gate</h3>
+<h4 id="-">全局变量 $开头 任何作用域都可以访问！但是你依然可以用  顶级实例变量@ 来替代全局变量</h4>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -168,7 +169,7 @@ m_method(<span class="number">1</span>,<span class="number">2</span>) {|x,y| (x+
 8
 </pre></td><td class="code"><pre>   <span class="variable">@var</span> = <span class="string">"the top-level @var"</span>
 =&gt; <span class="string">"the top-level @var"</span>
-   <span class="function"><span class="keyword">def</span> <span class="title">my_method</span> </span>
+   <span class="function"><span class="keyword">def</span> </span>my_method 
 ..   <span class="variable">@var</span> 
 ..   <span class="keyword">end</span>
 =&gt; <span class="keyword">nil</span>
@@ -176,10 +177,10 @@ m_method(<span class="number">1</span>,<span class="number">2</span>) {|x,y| (x+
 =&gt; <span class="string">"the top-level @var"</span>
 </pre></td></tr></table></figure>
 
-<h4 id="-9876-7ea7-5b9e-4f8b-53d8-91cf-6bd4-5168-5c40-53d8-91cf-8981-5b89-5168-4e00-4e9b-">顶级实例变量比全局变量要安全一些</h4>
-<h3 id="-6241-5e73-5316-Scope">扁平化Scope</h3>
-<h4 id="class-2f-def-2f-module_-4e4b-95f4-6709-4e00-4e2a-5c0f-5c0f-7684-533a-522b-_Class-548c-Module-4e2d-7684-Code-4f1a-88ab-7acb-5373-6267-884c-_def-8981-7b49-5230-8c03-7528-7684-65f6-5019-624d-4f1a-88ab-6267-884c-">class/def/module 之间有一个小小的区别 Class和Module中的Code会被立即执行  def要等到调用的时候才会被执行</h4>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<h4 id="-">顶级实例变量比全局变量要安全一些</h4>
+<h3 id="-scope">扁平化Scope</h3>
+<h4 id="class-def-module-class-module-code-def-">class/def/module 之间有一个小小的区别 Class和Module中的Code会被立即执行  def要等到调用的时候才会被执行</h4>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -203,15 +204,15 @@ m_method(<span class="number">1</span>,<span class="number">2</span>) {|x,y| (x+
 ..   <span class="keyword">end</span>
 <span class="constant">Module</span>
 =&gt; <span class="keyword">nil</span>
-   <span class="function"><span class="keyword">def</span> <span class="title">Test_my_method</span> </span>
+   <span class="function"><span class="keyword">def</span> </span><span class="constant">Test_my_method</span> 
 ..   puts <span class="string">"Method"</span> 
 ..   <span class="keyword">end</span>
 =&gt; <span class="keyword">nil</span>
 </pre></td></tr></table></figure>
 
-<h3 id="-7a7f-8d8a-4f5c-7528-57df-">穿越作用域</h3>
-<h4 id="-8981-8ba9-5c40-90e8-53d8-91cf-7a7f-8d8a-_class_Myclass-8fd9-4e2a-Scope_Gate">要让局部变量穿越 class Myclass这个Scope Gate</h4>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<h3 id="-">穿越作用域</h3>
+<h4 id="-class-myclass-scope-gate">要让局部变量穿越 class Myclass这个Scope Gate</h4>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -243,14 +244,14 @@ scope is here!
 
 <ul>
 <li>想要让一组方法之间共享一个变量 而屏蔽掉方法对其的访问就用扁平化的方法</li>
-<li>将局部变量传给对象内的实例变量—-打破封装—-直接修改实例变量—-能接受的理由就是测试</li>
+<li>将局部变量传给对象内的实例变量---打破封装---直接修改实例变量---能接受的理由就是测试</li>
 <li>创建一个对象 仅仅是为了用instance_eval来执行Block 这叫做Clean room</li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2013/09/26/2013-09-26-ruby-proc/" data-id="gx0fg19pm9jwcujx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2013/09/26/2013-09-26-ruby-proc/" data-id="xvpf7m8w4nwe8a7u" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2013/09/26/2013-09-26-ruby-proc/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -297,7 +298,7 @@ scope is here!
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arduino/">Arduino</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deploy/">Deploy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IOS/">IOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kettle/">Kettle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Objective-C/">Objective-C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Talks/">Talks</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arduino/">Arduino</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deploy/">Deploy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IOS/">IOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kettle/">Kettle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Objective-C/">Objective-C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RaspberryPi/">RaspberryPi</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Talks/">Talks</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -306,7 +307,7 @@ scope is here!
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Arduino/" style="font-size: 13.33px;">Arduino</a><a href="/tags/Deploy/" style="font-size: 10.00px;">Deploy</a><a href="/tags/Heroku/" style="font-size: 10.00px;">Heroku</a><a href="/tags/IOS/" style="font-size: 10.00px;">IOS</a><a href="/tags/JS/" style="font-size: 10.00px;">JS</a><a href="/tags/Kettle/" style="font-size: 10.00px;">Kettle</a><a href="/tags/Linux/" style="font-size: 10.00px;">Linux</a><a href="/tags/MySQL/" style="font-size: 16.67px;">MySQL</a><a href="/tags/Objective-C/" style="font-size: 10.00px;">Objective-C</a><a href="/tags/Ruby/" style="font-size: 20.00px;">Ruby</a><a href="/tags/Talks/" style="font-size: 10.00px;">Talks</a>
+      <a href="/tags/Arduino/" style="font-size: 12.50px;">Arduino</a><a href="/tags/Deploy/" style="font-size: 10.00px;">Deploy</a><a href="/tags/Heroku/" style="font-size: 10.00px;">Heroku</a><a href="/tags/IOS/" style="font-size: 10.00px;">IOS</a><a href="/tags/JS/" style="font-size: 10.00px;">JS</a><a href="/tags/Kettle/" style="font-size: 10.00px;">Kettle</a><a href="/tags/Linux/" style="font-size: 15.00px;">Linux</a><a href="/tags/MySQL/" style="font-size: 17.50px;">MySQL</a><a href="/tags/Objective-C/" style="font-size: 10.00px;">Objective-C</a><a href="/tags/RaspberryPi/" style="font-size: 12.50px;">RaspberryPi</a><a href="/tags/Ruby/" style="font-size: 20.00px;">Ruby</a><a href="/tags/Talks/" style="font-size: 10.00px;">Talks</a>
     </div>
   </div>
 
@@ -315,7 +316,7 @@ scope is here!
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">January 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09">September 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08">August 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05">May 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/05">May 2010</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">January 2014</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09">September 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08">August 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05">May 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/05">May 2010</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -327,23 +328,23 @@ scope is here!
       <ul>
         
           <li>
+            <a href="/2014/01/15/raspberrypi下安装mysql56/">RaspberryPi下编译安装MySQL5.6</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/15/mysql-replication/">MYSQL Replication学习总结</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/10/mount-usb-disk-on-raspberry-pi/">Mount USB-disk on Raspberry-Pi</a>
+          </li>
+        
+          <li>
             <a href="/2014/01/10/fix-hexo-archive-display-issue/">Fix Hexo Archive display issue</a>
           </li>
         
           <li>
-            <a href="/2014/01/10/mysql-replication/">MYSQL Replication学习总结</a>
-          </li>
-        
-          <li>
             <a href="/2014/01/09/mysql-error-1372-(hy000)/">MYSQL ERROR 1372 (HY000)</a>
-          </li>
-        
-          <li>
-            <a href="/2014/01/09/why-used-cmake/">为什么用Cmake？</a>
-          </li>
-        
-          <li>
-            <a href="/2014/01/07/linux-install-mysql55/">Linux Install MySQL5.5</a>
           </li>
         
       </ul>

@@ -130,7 +130,7 @@ class Datasource
     <div class="article-entry" itemprop="articleBody">
       
         <p>这堆神似的函数 越看越不爽 明天用method_missing重构</p>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -174,31 +174,31 @@ class Datasource
 
 <span class="class"><span class="keyword">class</span> <span class="title">Datasource</span></span>
   
-  <span class="function"><span class="keyword">def</span> <span class="title">initialize</span><span class="params">()</span></span>
+  <span class="function"><span class="keyword">def</span> </span>initialize()
     <span class="variable">@dw</span> = <span class="constant">YAML</span>.load(<span class="constant">File</span>.open(<span class="string">'info_price.yml'</span>)) 
   <span class="keyword">end</span>
 
-  <span class="function"><span class="keyword">def</span> <span class="title">get_cpu_info</span><span class="params">(computer_id)</span></span>
+  <span class="function"><span class="keyword">def</span> </span>get_cpu_info(computer_id)
     <span class="variable">@dw</span>[computer_id][<span class="string">"cpu_info"</span>]
   <span class="keyword">end</span>
 
-  <span class="function"><span class="keyword">def</span> <span class="title">get_cpu_price</span><span class="params">(computer_id)</span></span>
+  <span class="function"><span class="keyword">def</span> </span>get_cpu_price(computer_id)
     <span class="variable">@dw</span>[computer_id][<span class="string">"cpu_price"</span>]
   <span class="keyword">end</span>
 
-  <span class="function"><span class="keyword">def</span> <span class="title">get_mouse_info</span><span class="params">(computer_id)</span></span>
+  <span class="function"><span class="keyword">def</span> </span>get_mouse_info(computer_id)
     <span class="variable">@dw</span>[computer_id][<span class="string">"mouse_info"</span>]
   <span class="keyword">end</span>
 
-  <span class="function"><span class="keyword">def</span> <span class="title">get_mouse_price</span><span class="params">(computer_id)</span></span>
+  <span class="function"><span class="keyword">def</span> </span>get_mouse_price(computer_id)
     <span class="variable">@dw</span>[computer_id][<span class="string">"mouse_price"</span>]
   <span class="keyword">end</span>
 
-  <span class="function"><span class="keyword">def</span> <span class="title">get_memory_info</span><span class="params">(computer_id)</span></span>
+  <span class="function"><span class="keyword">def</span> </span>get_memory_info(computer_id)
     <span class="variable">@dw</span>[computer_id][<span class="string">"memory_info"</span>]
   <span class="keyword">end</span>
 
-  <span class="function"><span class="keyword">def</span> <span class="title">get_memory_price</span><span class="params">(computer_id)</span></span>
+  <span class="function"><span class="keyword">def</span> </span>get_memory_price(computer_id)
     <span class="variable">@dw</span>[computer_id][<span class="string">"memory_price"</span>]
   <span class="keyword">end</span>
 <span class="keyword">end</span>
@@ -213,8 +213,8 @@ puts ds.get_cpu_price(10002)
 </pre></td></tr></table></figure>
 
 <p><a id="more"></a></p>
-<h3 id="-53c2-8003-">参考</h3>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<h3 id="-">参考</h3>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -249,12 +249,12 @@ puts ds.get_cpu_price(10002)
     undef_method m <span class="keyword">unless</span> m.to_s =~ <span class="regexp">/^__|method_missing|respond_to?|object_id/</span>
   <span class="keyword">end</span>
 
-  <span class="function"><span class="keyword">def</span> <span class="title">initialize</span><span class="params">(data_source)</span></span>
+  <span class="function"><span class="keyword">def</span> </span>initialize(data_source)
     <span class="comment">#<span class="yardoctag">@pc</span>_id = computer_id</span>
     <span class="variable">@data_source</span> = data_source
   <span class="keyword">end</span>
 
-  <span class="function"><span class="keyword">def</span> <span class="title">method_missing</span><span class="params">(name, *args)</span></span>
+  <span class="function"><span class="keyword">def</span> </span>method_missing(name, *args)
       <span class="keyword">super</span> <span class="keyword">if</span> !respond_to?(name)
       <span class="comment">#puts "&gt;&gt;&gt; #{name}, args: #{args}, args class: #{args.class} and size: #{args.size}"</span>
       
@@ -267,7 +267,7 @@ puts ds.get_cpu_price(10002)
       <span class="keyword">end</span>
   <span class="keyword">end</span>
 
-  <span class="function"><span class="keyword">def</span> <span class="title">respond_to?</span><span class="params">(method)</span></span>
+  <span class="function"><span class="keyword">def</span> </span>respond_to?(method)
     <span class="variable">@data_source</span>.respond_to?(<span class="string">"get_<span class="subst">#{method}</span>_info"</span>) || <span class="keyword">super</span>
   <span class="keyword">end</span>
 
@@ -278,7 +278,7 @@ puts ds.get_cpu_price(10002)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2013/09/25/refactoring/" data-id="0vflf3yrqpm6z93x" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2013/09/25/refactoring/" data-id="lysj2lcjtwbwuv6t" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2013/09/25/refactoring/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -325,7 +325,7 @@ puts ds.get_cpu_price(10002)
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arduino/">Arduino</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deploy/">Deploy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IOS/">IOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kettle/">Kettle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Objective-C/">Objective-C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Talks/">Talks</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arduino/">Arduino</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deploy/">Deploy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IOS/">IOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kettle/">Kettle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Objective-C/">Objective-C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RaspberryPi/">RaspberryPi</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Talks/">Talks</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -334,7 +334,7 @@ puts ds.get_cpu_price(10002)
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Arduino/" style="font-size: 13.33px;">Arduino</a><a href="/tags/Deploy/" style="font-size: 10.00px;">Deploy</a><a href="/tags/Heroku/" style="font-size: 10.00px;">Heroku</a><a href="/tags/IOS/" style="font-size: 10.00px;">IOS</a><a href="/tags/JS/" style="font-size: 10.00px;">JS</a><a href="/tags/Kettle/" style="font-size: 10.00px;">Kettle</a><a href="/tags/Linux/" style="font-size: 10.00px;">Linux</a><a href="/tags/MySQL/" style="font-size: 16.67px;">MySQL</a><a href="/tags/Objective-C/" style="font-size: 10.00px;">Objective-C</a><a href="/tags/Ruby/" style="font-size: 20.00px;">Ruby</a><a href="/tags/Talks/" style="font-size: 10.00px;">Talks</a>
+      <a href="/tags/Arduino/" style="font-size: 12.50px;">Arduino</a><a href="/tags/Deploy/" style="font-size: 10.00px;">Deploy</a><a href="/tags/Heroku/" style="font-size: 10.00px;">Heroku</a><a href="/tags/IOS/" style="font-size: 10.00px;">IOS</a><a href="/tags/JS/" style="font-size: 10.00px;">JS</a><a href="/tags/Kettle/" style="font-size: 10.00px;">Kettle</a><a href="/tags/Linux/" style="font-size: 15.00px;">Linux</a><a href="/tags/MySQL/" style="font-size: 17.50px;">MySQL</a><a href="/tags/Objective-C/" style="font-size: 10.00px;">Objective-C</a><a href="/tags/RaspberryPi/" style="font-size: 12.50px;">RaspberryPi</a><a href="/tags/Ruby/" style="font-size: 20.00px;">Ruby</a><a href="/tags/Talks/" style="font-size: 10.00px;">Talks</a>
     </div>
   </div>
 
@@ -343,7 +343,7 @@ puts ds.get_cpu_price(10002)
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">January 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09">September 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08">August 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05">May 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/05">May 2010</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">January 2014</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09">September 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08">August 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05">May 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/05">May 2010</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -355,23 +355,23 @@ puts ds.get_cpu_price(10002)
       <ul>
         
           <li>
+            <a href="/2014/01/15/raspberrypi下安装mysql56/">RaspberryPi下编译安装MySQL5.6</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/15/mysql-replication/">MYSQL Replication学习总结</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/10/mount-usb-disk-on-raspberry-pi/">Mount USB-disk on Raspberry-Pi</a>
+          </li>
+        
+          <li>
             <a href="/2014/01/10/fix-hexo-archive-display-issue/">Fix Hexo Archive display issue</a>
           </li>
         
           <li>
-            <a href="/2014/01/10/mysql-replication/">MYSQL Replication学习总结</a>
-          </li>
-        
-          <li>
             <a href="/2014/01/09/mysql-error-1372-(hy000)/">MYSQL ERROR 1372 (HY000)</a>
-          </li>
-        
-          <li>
-            <a href="/2014/01/09/why-used-cmake/">为什么用Cmake？</a>
-          </li>
-        
-          <li>
-            <a href="/2014/01/07/linux-install-mysql55/">Linux Install MySQL5.5</a>
           </li>
         
       </ul>

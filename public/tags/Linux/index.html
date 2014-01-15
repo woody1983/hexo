@@ -64,6 +64,216 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-raspberrypi下安装mysql56" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/01/15/raspberrypi下安装mysql56/" class="article-date">
+  <time datetime="2014-01-15T03:30:42.000Z" itemprop="datePublished">Jan 15 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/01/15/raspberrypi下安装mysql56/">RaspberryPi下编译安装MySQL5.6</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="-cmake-12-">遇到的问题还是蛮多的 首先是时间 Cmake编译的时间差不多是12小时左右</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="code"><pre>sudo apt<span class="attribute">-get</span> install openssl<span class="attribute">-dev</span><span class="subst">*</span>
+sudo apt<span class="attribute">-get</span> install  libncurses5<span class="attribute">-dev</span>
+sudo cmake <span class="attribute">-DCMAKE_INSTALL_PREFIX</span><span class="subst">=</span>/usr/<span class="built_in">local</span>/mysql <span class="attribute">-DMYSQL_UNIX_ADDR</span><span class="subst">=</span>/tmp/mysql<span class="built_in">.</span>sock <span class="subst">\</span> 
+<span class="attribute">-DDEFAULT_CHARSET</span><span class="subst">=</span>utf8 <span class="attribute">-DDEFAULT_COLLATION</span><span class="subst">=</span>utf8_general_ci  <span class="attribute">-DWITH_EXTRA_CHARSETS</span><span class="subst">=</span><span class="literal">all</span> <span class="subst">\</span> 
+<span class="attribute">-DWITH_INNOBASE_STORAGE_ENGINE</span><span class="subst">=</span><span class="number">1</span> <span class="attribute">-DWITH_ARCHIVE_STORAGE_ENGINE</span><span class="subst">=</span><span class="number">1</span>  <span class="subst">\</span>
+<span class="attribute">-DWITH_BLACKHOLE_STORAGE_ENGINE</span><span class="subst">=</span><span class="number">1</span> <span class="attribute">-DWITH_PERFSCHEMA_STORAGE_ENGINE</span><span class="subst">=</span><span class="number">1</span> <span class="subst">\</span> 
+<span class="attribute">-DWITH_SSL</span><span class="subst">=</span>yes  <span class="attribute">-DENABLED_LOCAL_INFILE</span><span class="subst">=</span><span class="number">1</span>
+</pre></td></tr></table></figure>
+
+<h3 id="-">一开始启动都是正常的 但我做了一些破坏测试以后就有点问题了</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="code"><pre>pi@raspberrypi /usr/<span class="built_in">local</span>/mysql/<span class="built_in">data</span> $ ls <span class="attribute">-lah</span>
+total <span class="number">85</span>M
+drwxr<span class="attribute">-sr</span><span class="attribute">-x</span>  <span class="number">5</span> mysql dba   <span class="number">4.0</span>K Jan <span class="number">10</span> <span class="number">15</span>:<span class="number">55</span> <span class="built_in">.</span>
+drwxr<span class="attribute">-sr</span><span class="attribute">-x</span> <span class="number">15</span> root  staff <span class="number">4.0</span>K Jan <span class="number">10</span> <span class="number">06</span>:<span class="number">09</span> <span class="built_in">..</span>
+<span class="attribute">-rw</span><span class="attribute">-rw</span><span class="subst">----</span>  <span class="number">1</span> mysql dba     <span class="number">56</span> Jan <span class="number">10</span> <span class="number">15</span>:<span class="number">55</span> auto<span class="built_in">.</span>cnf
+<span class="attribute">-rw</span><span class="attribute">-rw</span><span class="subst">----</span>  <span class="number">1</span> mysql dba    <span class="number">74</span>M Jan <span class="number">10</span> <span class="number">15</span>:<span class="number">55</span> ibdata1
+<span class="attribute">-rw</span><span class="attribute">-rw</span><span class="subst">----</span>  <span class="number">1</span> mysql dba   <span class="number">5.0</span>M Jan <span class="number">10</span> <span class="number">15</span>:<span class="number">55</span> ib_logfile0
+<span class="attribute">-rw</span><span class="attribute">-rw</span><span class="subst">----</span>  <span class="number">1</span> mysql dba   <span class="number">5.0</span>M Jan <span class="number">10</span> <span class="number">15</span>:<span class="number">43</span> ib_logfile1
+drwx<span class="subst">--</span>S<span class="subst">---</span>  <span class="number">2</span> mysql dba   <span class="number">4.0</span>K Jan <span class="number">10</span> <span class="number">15</span>:<span class="number">54</span> mysql
+drwx<span class="subst">--</span>S<span class="subst">---</span>  <span class="number">2</span> mysql dba   <span class="number">4.0</span>K Jan <span class="number">10</span> <span class="number">15</span>:<span class="number">54</span> performance_schema
+drwxr<span class="attribute">-sr</span><span class="attribute">-x</span>  <span class="number">2</span> mysql dba   <span class="number">4.0</span>K Jan <span class="number">10</span> <span class="number">02</span>:<span class="number">27</span> test
+</pre></td></tr></table></figure>
+
+<p>5.6开始 Innodb的文件你如果手动删除的话 有几张表是不会重建的 这个比较麻烦 我是重新install初始化DB以后恢复的</p>
+<h4 id="mysql-5-6-can-t-find-messagefile-usr-share-mysql-errmsg-sys-">Mysql 5.6 Can&#39;t find messagefile &#39;/usr/share/mysql/errmsg.sys&#39;解决方法</h4>
+<p><code>sudo cp share/english/errmsg.sys /usr/share/mysql/</code></p>
+<h3 id="-">测试阶段 参数还没设置太多 个别和内存有关的参数要小心 不要设置太大</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+</pre></td><td class="code"><pre>[mysqld]
+
+# Remove leading # and <span class="operator"><span class="keyword">set</span> <span class="keyword">to</span> the amount <span class="keyword">of</span> RAM <span class="keyword">for</span> the most important data
+# cache <span class="keyword">in</span> MySQL. <span class="keyword">Start</span> <span class="keyword">at</span> <span class="number">70</span>% <span class="keyword">of</span> total RAM <span class="keyword">for</span> dedicated server, <span class="keyword">else</span> <span class="number">10</span>%.
+# innodb_buffer_pool_size = <span class="number">128</span>M
+
+# Remove <span class="keyword">leading</span> # <span class="keyword">to</span> turn <span class="keyword">on</span> a very important data integrity <span class="keyword">option</span>: logging
+# changes <span class="keyword">to</span> the binary log between backups.
+# log_bin
+
+# These <span class="keyword">are</span> commonly <span class="keyword">set</span>, remove the # <span class="keyword">and</span> <span class="keyword">set</span> <span class="keyword">as</span> required.
+ basedir = /usr/<span class="keyword">local</span>/mysql
+ datadir = /usr/<span class="keyword">local</span>/mysql/data
+ port = <span class="number">3306</span>
+ server_id = <span class="number">1</span>
+ socket = /tmp/mysql.sock
+ log-error = /usr/<span class="keyword">local</span>/mysql/log/alert.log
+
+ explicit_defaults_for_timestamp=<span class="keyword">true</span>
+
+#-- Innodb
+innodb_data_home_dir = /usr/<span class="keyword">local</span>/mysql/data
+innodb_data_file_path = ibdata1:<span class="number">10</span>M:autoextend
+innodb_log_group_home_dir = /usr/<span class="keyword">local</span>/mysql/data
+
+ innodb_buffer_pool_size = <span class="number">12</span>M
+# innodb_additional_mem_pool_size = <span class="number">2</span>M
+
+innodb_log_file_size = <span class="number">5</span>M
+innodb_log_buffer_size = <span class="number">8</span>M
+innodb_flush_log_at_trx_commit = <span class="number">1</span>
+innodb_lock_wait_timeout = <span class="number">50</span></span>
+</pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/01/15/raspberrypi下安装mysql56/" data-id="8t4q8v0scoayai8l" class="article-share-link">Share</a>
+      
+        <a href="http://yoursite.com/2014/01/15/raspberrypi下安装mysql56/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RaspberryPi/">RaspberryPi</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mount-usb-disk-on-raspberry-pi" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/01/10/mount-usb-disk-on-raspberry-pi/" class="article-date">
+  <time datetime="2014-01-10T07:30:10.000Z" itemprop="datePublished">Jan 10 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/01/10/mount-usb-disk-on-raspberry-pi/">Mount USB-disk on Raspberry-Pi</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight bash"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="code"><pre>
+pi@raspberrypi ~/github/hexo $ ls -lah /dev/sd*
+brw-rw---T <span class="number">1</span> root floppy <span class="number">8</span>, <span class="number">0</span> Jan  <span class="number">9</span> <span class="number">03</span>:<span class="number">28</span> /dev/sda
+brw-rw---T <span class="number">1</span> root floppy <span class="number">8</span>, <span class="number">1</span> Jan  <span class="number">9</span> <span class="number">03</span>:<span class="number">28</span> /dev/sda1
+
+<span class="built_in">cd</span> /home/pi
+mkdir usbdisk
+<span class="built_in">sudo</span> mount -o rw /dev/sda1 /home/pi/usbdisk/
+</pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/01/10/mount-usb-disk-on-raspberry-pi/" data-id="n8s6b5counp8xnw8" class="article-share-link">Share</a>
+      
+        <a href="http://yoursite.com/2014/01/10/mount-usb-disk-on-raspberry-pi/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RaspberryPi/">RaspberryPi</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-why-used-cmake" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/01/09/why-used-cmake/" class="article-date">
@@ -102,11 +312,11 @@
 </pre></td></tr></table></figure>
 
 <p><a href="http://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.15.tar.gz" target="_blank">Get MySQL5.6.15</a></p>
-<figure class="highlight lang-shell"><table><tr><td class="gutter"><pre>1
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
 2
 3
 4
-</pre></td><td class="code"><pre>cmake <span class="attribute">-DCMAKE_INSTALL_PREFIX</span><span class="subst">=/</span>opt<span class="subst">/</span>mysql <span class="attribute">-DMYSQL_UNIX_ADDR</span><span class="subst">=/</span>tmp<span class="subst">/</span>mysql<span class="built_in">.</span>sock <span class="attribute">-DDEFAULT_CHARSET</span><span class="subst">=</span>utf8 <span class="subst">\</span>
+</pre></td><td class="code"><pre>cmake <span class="attribute">-DCMAKE_INSTALL_PREFIX</span><span class="subst">=</span>/opt/mysql <span class="attribute">-DMYSQL_UNIX_ADDR</span><span class="subst">=</span>/tmp/mysql<span class="built_in">.</span>sock <span class="attribute">-DDEFAULT_CHARSET</span><span class="subst">=</span>utf8 <span class="subst">\</span>
 <span class="attribute">-DDEFAULT_COLLATION</span><span class="subst">=</span>utf8_general_ci  <span class="attribute">-DWITH_EXTRA_CHARSETS</span><span class="subst">=</span><span class="literal">all</span> <span class="attribute">-DWITH_INNOBASE_STORAGE_ENGINE</span><span class="subst">=</span><span class="number">1</span> <span class="subst">\</span>
 <span class="attribute">-DWITH_ARCHIVE_STORAGE_ENGINE</span><span class="subst">=</span><span class="number">1</span> <span class="attribute">-DWITH_BLACKHOLE_STORAGE_ENGINE</span><span class="subst">=</span><span class="number">1</span> <span class="attribute">-DWITH_PERFSCHEMA_STORAGE_ENGINE</span><span class="subst">=</span><span class="number">1</span> <span class="subst">\</span>
 <span class="attribute">-DWITH_SSL</span><span class="subst">=</span>yes  <span class="attribute">-DENABLED_LOCAL_INFILE</span><span class="subst">=</span><span class="number">1</span>
@@ -121,7 +331,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/01/09/why-used-cmake/" data-id="n92z4ez351tszs72" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2014/01/09/why-used-cmake/" data-id="whbjvhkda6pronsr" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2014/01/09/why-used-cmake/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -144,7 +354,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arduino/">Arduino</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deploy/">Deploy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IOS/">IOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kettle/">Kettle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Objective-C/">Objective-C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Talks/">Talks</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arduino/">Arduino</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deploy/">Deploy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IOS/">IOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kettle/">Kettle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Objective-C/">Objective-C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RaspberryPi/">RaspberryPi</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Talks/">Talks</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -153,7 +363,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Arduino/" style="font-size: 13.33px;">Arduino</a><a href="/tags/Deploy/" style="font-size: 10.00px;">Deploy</a><a href="/tags/Heroku/" style="font-size: 10.00px;">Heroku</a><a href="/tags/IOS/" style="font-size: 10.00px;">IOS</a><a href="/tags/JS/" style="font-size: 10.00px;">JS</a><a href="/tags/Kettle/" style="font-size: 10.00px;">Kettle</a><a href="/tags/Linux/" style="font-size: 10.00px;">Linux</a><a href="/tags/MySQL/" style="font-size: 16.67px;">MySQL</a><a href="/tags/Objective-C/" style="font-size: 10.00px;">Objective-C</a><a href="/tags/Ruby/" style="font-size: 20.00px;">Ruby</a><a href="/tags/Talks/" style="font-size: 10.00px;">Talks</a>
+      <a href="/tags/Arduino/" style="font-size: 12.50px;">Arduino</a><a href="/tags/Deploy/" style="font-size: 10.00px;">Deploy</a><a href="/tags/Heroku/" style="font-size: 10.00px;">Heroku</a><a href="/tags/IOS/" style="font-size: 10.00px;">IOS</a><a href="/tags/JS/" style="font-size: 10.00px;">JS</a><a href="/tags/Kettle/" style="font-size: 10.00px;">Kettle</a><a href="/tags/Linux/" style="font-size: 15.00px;">Linux</a><a href="/tags/MySQL/" style="font-size: 17.50px;">MySQL</a><a href="/tags/Objective-C/" style="font-size: 10.00px;">Objective-C</a><a href="/tags/RaspberryPi/" style="font-size: 12.50px;">RaspberryPi</a><a href="/tags/Ruby/" style="font-size: 20.00px;">Ruby</a><a href="/tags/Talks/" style="font-size: 10.00px;">Talks</a>
     </div>
   </div>
 
@@ -162,7 +372,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">January 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09">September 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08">August 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05">May 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/05">May 2010</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">January 2014</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09">September 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08">August 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05">May 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/05">May 2010</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -174,23 +384,23 @@
       <ul>
         
           <li>
+            <a href="/2014/01/15/raspberrypi下安装mysql56/">RaspberryPi下编译安装MySQL5.6</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/15/mysql-replication/">MYSQL Replication学习总结</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/10/mount-usb-disk-on-raspberry-pi/">Mount USB-disk on Raspberry-Pi</a>
+          </li>
+        
+          <li>
             <a href="/2014/01/10/fix-hexo-archive-display-issue/">Fix Hexo Archive display issue</a>
           </li>
         
           <li>
-            <a href="/2014/01/10/mysql-replication/">MYSQL Replication学习总结</a>
-          </li>
-        
-          <li>
             <a href="/2014/01/09/mysql-error-1372-(hy000)/">MYSQL ERROR 1372 (HY000)</a>
-          </li>
-        
-          <li>
-            <a href="/2014/01/09/why-used-cmake/">为什么用Cmake？</a>
-          </li>
-        
-          <li>
-            <a href="/2014/01/07/linux-install-mysql55/">Linux Install MySQL5.5</a>
           </li>
         
       </ul>

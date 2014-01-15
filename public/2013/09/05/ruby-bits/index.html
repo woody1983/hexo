@@ -102,25 +102,26 @@ end
         <p>关于Ruby最佳实践的记录，我几乎已经放弃向周围的人推荐Ruby这门让人开心的语言了，原因其实很奇怪。</p>
 <p>关于参数，Ruby的Function中定义的函数或类总是会接收很多参数 不接受参数的Function不觉得很奇葩吗？</p>
 <p>传统的语法和实践是</p>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
-</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">CHR</span><span class="params">(username,login_id,message)</span></span>
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> </span><span class="constant">CHR</span>(username,login_id,message)
  <span class="comment">#...</span>
 <span class="keyword">end</span>
 </pre></td></tr></table></figure>
 
 <p>这个不能说错 但按照CodeSchool老师的原话来说<code>Location isn&#39;t always used, so let&#39;s add default.</code></p>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
-</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">CHR</span><span class="params">(username,login_id=<span class="keyword">nil</span>,message=<span class="keyword">nil</span>)</span></span>
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> </span><span class="constant">CHR</span>(username,login_id=<span class="keyword">nil</span>,message=<span class="keyword">nil</span>)
  <span class="comment">#...</span>
 <span class="keyword">end</span>
 </pre></td></tr></table></figure>
 
-<p>还有一种情况就是参数过多，以致于让function变得毫无可读性<code>have to keep placeholders for arguments you’re not using</code><br>这个时候可以采用 <code>HASH Arguments</code></p>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<p>还有一种情况就是参数过多，以致于让function变得毫无可读性<code>have to keep placeholders for arguments you’re not using</code>
+这个时候可以采用 <code>HASH Arguments</code></p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -130,7 +131,7 @@ end
 8
 9
 </pre></td><td class="code"><pre>
-<span class="function"><span class="keyword">def</span> <span class="title">tweet</span><span class="params">(message, options = {})</span></span>
+<span class="function"><span class="keyword">def</span> </span>tweet(message, options = {})
   status = <span class="constant">Status</span>.new
   status.lat = options[<span class="symbol">:lat</span>]
   status.long = options[<span class="symbol">:long</span>]
@@ -141,7 +142,7 @@ end
 </pre></td></tr></table></figure>
 
 <p>调用的时候 就可以利用Symbol来实现多参数。</p>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -155,8 +156,8 @@ end
 
 <a id="more"></a>
 
-<h3 id="Using_Ruby_1-9_hash_syntax">Using Ruby 1.9 hash syntax</h3>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<h3 id="using-ruby-1-9-hash-syntax">Using Ruby 1.9 hash syntax</h3>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -169,7 +170,7 @@ end
 </pre></td></tr></table></figure>
 
 <p>参数的顺序也无所谓了 </p>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -182,11 +183,11 @@ end
 </pre></td></tr></table></figure>
 
 <p>一个参数也ok</p>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 </pre></td><td class="code"><pre>tweet(<span class="string">"Practicing Ruby-Fu!"</span>)
 </pre></td></tr></table></figure>
 
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -194,7 +195,7 @@ end
 6
 7
 8
-</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">new_game</span><span class="params">(name, options={})</span></span>
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> </span>new_game(name, options={})
   {
     <span class="symbol">name:</span> name,
     <span class="symbol">year:</span> options[<span class="symbol">:year</span>],
@@ -204,15 +205,15 @@ end
 game = new_game(<span class="string">"Street Figher II"</span>, <span class="symbol">year:</span> <span class="number">1992</span>, <span class="symbol">system:</span> <span class="string">"SNES"</span>)
 </pre></td></tr></table></figure>
 
-<h3 id="EXCEPTIONS">EXCEPTIONS</h3>
+<h3 id="exceptions">EXCEPTIONS</h3>
 <p>关于判断例外EXCEPTIONS的问题 最传统的写法就是先做判断 有值就出来 如果没值的话 就抛除个神器的东西。貌似这么写程序不太好。</p>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
 5
 6
-</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">get_tweets</span><span class="params">(list)</span></span>
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> </span>get_tweets(list)
   <span class="keyword">if</span> list.authorized?(<span class="variable">@user</span>)
     list.tweets <span class="comment">#如果这个user是验证成功的就把他的tweet列出来</span>
 <span class="keyword">else</span>
@@ -221,7 +222,7 @@ game = new_game(<span class="string">"Street Figher II"</span>, <span class="sym
 </pre></td></tr></table></figure>
 
 <p>如果没有tweet 查出来是空的话  还要报一个Error 貌似在Ruby里没这个必要。</p>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -234,7 +235,7 @@ game = new_game(<span class="string">"Street Figher II"</span>, <span class="sym
 </pre></td></tr></table></figure>
 
 <p>最佳方法应该是用unless先对<code>@user</code>这个对象进行判断 如果没有就用<code>raise</code>来抛除一个异常并返回登陆.</p>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -246,7 +247,7 @@ game = new_game(<span class="string">"Street Figher II"</span>, <span class="sym
 10
 11
 12
-</pre></td><td class="code"><pre>￼<span class="function"><span class="keyword">def</span> <span class="title">get_tweets</span><span class="params">(list)</span></span>
+</pre></td><td class="code"><pre>￼<span class="function"><span class="keyword">def</span> </span>get_tweets(list)
   <span class="keyword">unless</span> list.authorized?(<span class="variable">@user</span>)
     raise <span class="constant">AuthorizationException</span>.new
   <span class="keyword">end</span>
@@ -261,7 +262,7 @@ list.tweets
 </pre></td></tr></table></figure>
 
 <p>练习</p>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -275,7 +276,7 @@ list.tweets
 12
 13
 </pre></td><td class="code"><pre><span class="class"><span class="keyword">class</span> <span class="title">InvalidGameError</span> <span class="inheritance">&lt; <span class="parent">StandardError</span></span>;</span> <span class="keyword">end</span>
-<span class="function"><span class="keyword">def</span> <span class="title">new_game</span><span class="params">(name, options={})</span></span>
+<span class="function"><span class="keyword">def</span> </span>new_game(name, options={})
   {
     <span class="symbol">name:</span> name,
     <span class="symbol">year:</span> options[<span class="symbol">:year</span>],
@@ -289,8 +290,8 @@ list.tweets
 <span class="keyword">end</span>
 </pre></td></tr></table></figure>
 
-<p>We want to make sure that each game is a valid game object - in this case a simple hash of values. Even still, we wouldn’t want to return a hash with a nil name. Raise an InvalidGameError error in the new_game method if name is nil.</p>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<p>We want to make sure that each game is a valid game object - in this case a simple hash of values. Even still, we wouldn&#39;t want to return a hash with a nil name. Raise an InvalidGameError error in the new_game method if name is nil.</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -305,7 +306,7 @@ list.tweets
 13
 14
 </pre></td><td class="code"><pre><span class="class"><span class="keyword">class</span> <span class="title">InvalidGameError</span> <span class="inheritance">&lt; <span class="parent">StandardError</span></span>;</span> <span class="keyword">end</span>
-<span class="function"><span class="keyword">def</span> <span class="title">new_game</span><span class="params">(name, options={})</span></span>
+<span class="function"><span class="keyword">def</span> </span>new_game(name, options={})
 	raise <span class="constant">InvalidGameError</span>, <span class="string">"You must provide a name for this game."</span> <span class="keyword">unless</span> name
   {
     <span class="symbol">name:</span> name,
@@ -320,9 +321,9 @@ list.tweets
 <span class="keyword">end</span>
 </pre></td></tr></table></figure>
 
-<h3 id="splat_arguments">splat arguments</h3>
+<h3 id="splat-arguments">splat arguments</h3>
 <p>说实话 我没觉得这个比hash那个要实用</p>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -334,13 +335,13 @@ list.tweets
 10
 11
 12
-</pre></td><td class="code"><pre>￼<span class="function"><span class="keyword">def</span> <span class="title">mention</span><span class="params">(status, *names)</span></span>
+</pre></td><td class="code"><pre>￼<span class="function"><span class="keyword">def</span> </span>mention(status, *names)
   tweet(<span class="string">"<span class="subst">#{names.join(<span class="string">' '</span>)}</span> <span class="subst">#{status}</span>"</span>)
 <span class="keyword">end</span>
 
 mention(<span class="string">'Your courses rocked!'</span>, <span class="string">'eallam'</span>, <span class="string">'greggpollack'</span>, <span class="string">'jasonvanlue'</span>)
 
-<span class="function"><span class="keyword">def</span> <span class="title">describe_favorites</span><span class="params">(*games)</span></span>
+<span class="function"><span class="keyword">def</span> </span>describe_favorites(*games)
   <span class="keyword">for</span> game <span class="keyword">in</span> games
     puts <span class="string">"Favorite Game: <span class="subst">#{game}</span>"</span>
   <span class="keyword">end</span>  
@@ -349,7 +350,7 @@ describe_favorites(<span class="string">'Mario'</span>, <span class="string">'Co
 </pre></td></tr></table></figure>
 
 <p>为一个二维Array创建一个Class</p>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -366,7 +367,7 @@ user_names.each { |n| puts <span class="string">"<span class="subst">#{n[<span c
 </pre></td></tr></table></figure>
 
 <p>这个要直接打印出来 最后那个就会多一个分隔符。</p>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -377,12 +378,12 @@ user_names.each { |n| puts <span class="string">"<span class="subst">#{n[<span c
 9
 10
 </pre></td><td class="code"><pre><span class="class"><span class="keyword">class</span> <span class="title">Name</span></span>
-  <span class="function"><span class="keyword">def</span> <span class="title">initialize</span><span class="params">(first, last = <span class="keyword">nil</span>)</span></span>
+  <span class="function"><span class="keyword">def</span> </span>initialize(first, last = <span class="keyword">nil</span>)
     <span class="variable">@first</span> = first
     <span class="variable">@last</span> = last
   <span class="keyword">end</span>
  
-￼￼<span class="function"><span class="keyword">def</span> <span class="title">format</span></span>
+￼￼<span class="function"><span class="keyword">def</span> </span>format
     [<span class="variable">@last</span>, <span class="variable">@first</span>].compact.join(<span class="string">', '</span>)
   <span class="keyword">end</span> 
 <span class="keyword">end</span>
@@ -392,7 +393,7 @@ user_names.each { |n| puts <span class="string">"<span class="subst">#{n[<span c
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2013/09/05/ruby-bits/" data-id="4z0w306ieqkggqzt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2013/09/05/ruby-bits/" data-id="k5da14esz2s26hxd" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2013/09/05/ruby-bits/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -439,7 +440,7 @@ user_names.each { |n| puts <span class="string">"<span class="subst">#{n[<span c
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arduino/">Arduino</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deploy/">Deploy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IOS/">IOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kettle/">Kettle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Objective-C/">Objective-C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Talks/">Talks</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arduino/">Arduino</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deploy/">Deploy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IOS/">IOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kettle/">Kettle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Objective-C/">Objective-C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RaspberryPi/">RaspberryPi</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Talks/">Talks</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -448,7 +449,7 @@ user_names.each { |n| puts <span class="string">"<span class="subst">#{n[<span c
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Arduino/" style="font-size: 13.33px;">Arduino</a><a href="/tags/Deploy/" style="font-size: 10.00px;">Deploy</a><a href="/tags/Heroku/" style="font-size: 10.00px;">Heroku</a><a href="/tags/IOS/" style="font-size: 10.00px;">IOS</a><a href="/tags/JS/" style="font-size: 10.00px;">JS</a><a href="/tags/Kettle/" style="font-size: 10.00px;">Kettle</a><a href="/tags/Linux/" style="font-size: 10.00px;">Linux</a><a href="/tags/MySQL/" style="font-size: 16.67px;">MySQL</a><a href="/tags/Objective-C/" style="font-size: 10.00px;">Objective-C</a><a href="/tags/Ruby/" style="font-size: 20.00px;">Ruby</a><a href="/tags/Talks/" style="font-size: 10.00px;">Talks</a>
+      <a href="/tags/Arduino/" style="font-size: 12.50px;">Arduino</a><a href="/tags/Deploy/" style="font-size: 10.00px;">Deploy</a><a href="/tags/Heroku/" style="font-size: 10.00px;">Heroku</a><a href="/tags/IOS/" style="font-size: 10.00px;">IOS</a><a href="/tags/JS/" style="font-size: 10.00px;">JS</a><a href="/tags/Kettle/" style="font-size: 10.00px;">Kettle</a><a href="/tags/Linux/" style="font-size: 15.00px;">Linux</a><a href="/tags/MySQL/" style="font-size: 17.50px;">MySQL</a><a href="/tags/Objective-C/" style="font-size: 10.00px;">Objective-C</a><a href="/tags/RaspberryPi/" style="font-size: 12.50px;">RaspberryPi</a><a href="/tags/Ruby/" style="font-size: 20.00px;">Ruby</a><a href="/tags/Talks/" style="font-size: 10.00px;">Talks</a>
     </div>
   </div>
 
@@ -457,7 +458,7 @@ user_names.each { |n| puts <span class="string">"<span class="subst">#{n[<span c
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">January 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09">September 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08">August 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05">May 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/05">May 2010</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">January 2014</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09">September 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08">August 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05">May 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/05">May 2010</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -469,23 +470,23 @@ user_names.each { |n| puts <span class="string">"<span class="subst">#{n[<span c
       <ul>
         
           <li>
+            <a href="/2014/01/15/raspberrypi下安装mysql56/">RaspberryPi下编译安装MySQL5.6</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/15/mysql-replication/">MYSQL Replication学习总结</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/10/mount-usb-disk-on-raspberry-pi/">Mount USB-disk on Raspberry-Pi</a>
+          </li>
+        
+          <li>
             <a href="/2014/01/10/fix-hexo-archive-display-issue/">Fix Hexo Archive display issue</a>
           </li>
         
           <li>
-            <a href="/2014/01/10/mysql-replication/">MYSQL Replication学习总结</a>
-          </li>
-        
-          <li>
             <a href="/2014/01/09/mysql-error-1372-(hy000)/">MYSQL ERROR 1372 (HY000)</a>
-          </li>
-        
-          <li>
-            <a href="/2014/01/09/why-used-cmake/">为什么用Cmake？</a>
-          </li>
-        
-          <li>
-            <a href="/2014/01/07/linux-install-mysql55/">Linux Install MySQL5.5</a>
           </li>
         
       </ul>

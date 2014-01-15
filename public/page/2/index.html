@@ -64,6 +64,225 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-refactoring" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/09/25/refactoring/" class="article-date">
+  <time datetime="2013-09-25T15:48:00.000Z" itemprop="datePublished">Sep 25 2013</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/09/25/refactoring/">Ruby Refactoring</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这堆神似的函数 越看越不爽 明天用method_missing重构</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+</pre></td><td class="code"><pre><span class="keyword">require</span> <span class="string">'yaml'</span>
+
+<span class="class"><span class="keyword">class</span> <span class="title">Datasource</span></span>
+  
+  <span class="function"><span class="keyword">def</span> </span>initialize()
+    <span class="variable">@dw</span> = <span class="constant">YAML</span>.load(<span class="constant">File</span>.open(<span class="string">'info_price.yml'</span>)) 
+  <span class="keyword">end</span>
+
+  <span class="function"><span class="keyword">def</span> </span>get_cpu_info(computer_id)
+    <span class="variable">@dw</span>[computer_id][<span class="string">"cpu_info"</span>]
+  <span class="keyword">end</span>
+
+  <span class="function"><span class="keyword">def</span> </span>get_cpu_price(computer_id)
+    <span class="variable">@dw</span>[computer_id][<span class="string">"cpu_price"</span>]
+  <span class="keyword">end</span>
+
+  <span class="function"><span class="keyword">def</span> </span>get_mouse_info(computer_id)
+    <span class="variable">@dw</span>[computer_id][<span class="string">"mouse_info"</span>]
+  <span class="keyword">end</span>
+
+  <span class="function"><span class="keyword">def</span> </span>get_mouse_price(computer_id)
+    <span class="variable">@dw</span>[computer_id][<span class="string">"mouse_price"</span>]
+  <span class="keyword">end</span>
+
+  <span class="function"><span class="keyword">def</span> </span>get_memory_info(computer_id)
+    <span class="variable">@dw</span>[computer_id][<span class="string">"memory_info"</span>]
+  <span class="keyword">end</span>
+
+  <span class="function"><span class="keyword">def</span> </span>get_memory_price(computer_id)
+    <span class="variable">@dw</span>[computer_id][<span class="string">"memory_price"</span>]
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+
+<span class="comment">#-- Debug --#</span>
+<span class="comment">=begin
+ds = Datasource.new
+puts ds.get_cpu_info(10001)
+puts ds.get_cpu_price(10002)
+=end</span>
+</pre></td></tr></table></figure>
+
+<p>
+        
+          <p class="article-more-link">
+            <a href="/2013/09/25/refactoring/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2013/09/25/refactoring/" data-id="lysj2lcjtwbwuv6t" class="article-share-link">Share</a>
+      
+        <a href="http://yoursite.com/2013/09/25/refactoring/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ruby/">Ruby</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-eigenclass-with-module" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/09/25/eigenclass-with-module/" class="article-date">
+  <time datetime="2013-09-25T15:23:00.000Z" itemprop="datePublished">Sep 25 2013</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Ruby/">Ruby</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/09/25/eigenclass-with-module/">eigenclass with Module</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我用了一个很笨的方法才把这个搞明白 那就是... </p>
+<h1 id="module-eigenclass-">Module的eigenclass 不会被任何事物继承  绝对封闭！</h1>
+<p><code>元编程#129Pages#Quiz</code></p>
+<h3 id="-">例子弄错了~在线编辑器害死人  凸</h3>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre></td><td class="code"><pre><span class="class"><span class="keyword">module</span> <span class="title">MyModule</span> </span>
+  <span class="function"><span class="keyword">def</span> </span>my_method; <span class="string">'hello'</span>;<span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="class"><span class="keyword">class</span> <span class="title">Myclass</span> </span>
+  <span class="keyword">include</span> <span class="constant">MyModule</span>
+<span class="keyword">end</span>
+
+irb(main)<span class="symbol">:</span><span class="number">004</span><span class="symbol">:</span><span class="number">0</span>&gt; <span class="constant">MyModule</span>.my_method
+<span class="comment">#NoMethodError: undefined method `my_method' for MyModule:Module</span>
+irb(main)<span class="symbol">:</span><span class="number">010</span><span class="symbol">:</span><span class="number">0</span>&gt; puts <span class="constant">Myclass</span>.my_method
+<span class="comment">#NoMethodError: undefined method `my_method' for Myclass:Class</span>
+irb(main)<span class="symbol">:</span><span class="number">011</span><span class="symbol">:</span><span class="number">0</span>&gt; obj = <span class="constant">Myclass</span>.new
+<span class="comment">#=&gt; #&lt;Myclass:0x861fa78&gt;</span>
+irb(main)<span class="symbol">:</span><span class="number">012</span><span class="symbol">:</span><span class="number">0</span>&gt; puts obj.my_method
+<span class="comment">#hello</span>
+<span class="comment">#=&gt; nil</span>
+</pre></td></tr></table></figure>
+
+<p>在Module中定义一个普通的实例方法 Myclass Include该Module 只有Myclass的实例obj可以调用
+也就是说<code>my_method</code>一直作为实例方法在ancestors中流窜</p>
+
+        
+          <p class="article-more-link">
+            <a href="/2013/09/25/eigenclass-with-module/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2013/09/25/eigenclass-with-module/" data-id="l6wkw55em3d4s61k" class="article-share-link">Share</a>
+      
+        <a href="http://yoursite.com/2013/09/25/eigenclass-with-module/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ruby/">Ruby</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-ruby-block-proc" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2013/09/25/ruby-block-proc/" class="article-date">
@@ -90,7 +309,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+        <figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -103,12 +322,12 @@
 11
 12
 13
-</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">math</span><span class="params">(a,b)</span></span>
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> </span>math(a,b)
     <span class="keyword">yield</span>(a,b)
 <span class="keyword">end</span>
 <span class="comment">#math写成这样子 不跟block是会报错的 因为功能单一 也没必要加上 block_given?</span>
 
-<span class="function"><span class="keyword">def</span> <span class="title">teach_math</span><span class="params">(a,b,&opertion)</span></span>
+<span class="function"><span class="keyword">def</span> </span>teach_math(a,b,&opertion)
     puts math(a,b,&opertion)
 <span class="keyword">end</span>
 
@@ -127,7 +346,7 @@ teach_math(<span class="number">2</span>,<span class="number">3</span>) {|x,y| x
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2013/09/25/ruby-block-proc/" data-id="cp1p4m88umsjal48" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2013/09/25/ruby-block-proc/" data-id="a9hwil2g5simretd" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2013/09/25/ruby-block-proc/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -167,7 +386,7 @@ teach_math(<span class="number">2</span>,<span class="number">3</span>) {|x,y| x
     
     <div class="article-entry" itemprop="articleBody">
       
-        <figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+        <figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -178,7 +397,7 @@ teach_math(<span class="number">2</span>,<span class="number">3</span>) {|x,y| x
 </pre></td></tr></table></figure>
 
 <p>总要为Kettle做点什么 用二进制来完成一对多线路分发 监控就成了主要的问题。</p>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -188,16 +407,16 @@ teach_math(<span class="number">2</span>,<span class="number">3</span>) {|x,y| x
  =&gt; <span class="number">10</span>
 </pre></td></tr></table></figure>
 
-<h4 id="10-4f4d-5bf9-5e94-10-4e2a-5206-53d1-7ebf-8def-">10位对应10个分发线路</h4>
+<h4 id="10-10-">10位对应10个分发线路</h4>
 <p>一个最常见的问题 我需要充值某条数据的某个线路重新发送 或者紧急止停某条线路的一批数据下发，so 要定位</p>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 </pre></td><td class="code"><pre><span class="number">1.9</span>.<span class="number">3</span>-p194 <span class="symbol">:</span><span class="number">016</span> &gt; <span class="string">"1111111111"</span>.split(<span class="string">''</span>)
  =&gt; [<span class="string">"1"</span>, <span class="string">"1"</span>, <span class="string">"1"</span>, <span class="string">"1"</span>, <span class="string">"1"</span>, <span class="string">"1"</span>, <span class="string">"1"</span>, <span class="string">"1"</span>, <span class="string">"1"</span>, <span class="string">"1"</span>]
 </pre></td></tr></table></figure>
 
-<h4 id="-91cd-7f6e-Reset_0-53f7-7ebf-8def-_-4e5f-5c31-662f-Array-6700-53f3-8fb9-90a3-4e2a-">重置Reset 0号线路 也就是Array最右边那个</h4>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<h4 id="-reset-0-array-">重置Reset 0号线路 也就是Array最右边那个</h4>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -220,7 +439,7 @@ teach_math(<span class="number">2</span>,<span class="number">3</span>) {|x,y| x
 </pre></td></tr></table></figure>
 
 <p><code>明天抽时间写一个Class 封装这个动作</code></p>
-<h3 id="-6211-60f3-8981-7684-529f-80fd-5e94-8be5-6709-">我想要的功能应该有</h3>
+<h3 id="-">我想要的功能应该有</h3>
 <ul>
 <li>Preview Kettle当前运行状况和<code>质量</code></li>
 <li>单独查看某个线路或某张表的下发情况 <code>时间</code> &amp; <code>Error</code> &amp; <code>Count</code></li>
@@ -231,7 +450,7 @@ teach_math(<span class="number">2</span>,<span class="number">3</span>) {|x,y| x
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2013/09/09/ruby-on-kettle/" data-id="z6fzpqt4ox4c3zuz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2013/09/09/ruby-on-kettle/" data-id="ch0und508ip0xmq4" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2013/09/09/ruby-on-kettle/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -273,13 +492,13 @@ teach_math(<span class="number">2</span>,<span class="number">3</span>) {|x,y| x
       
         <p>很早之前再Ruby China问的一个问题 就是1到10 可以创建多少个3位数不重复的组合</p>
 <p>现在有了答案!</p>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 </pre></td><td class="code"><pre>(<span class="number">1</span>..<span class="number">10</span>).to_a.combination(<span class="number">3</span>).to_a
 </pre></td></tr></table></figure>
 
 <p>说实话 这个函数我也没见过 但效果还不错 目测了一把基本是我要的，和数据打交道时间久了就总觉得号码是有规律可言的。上周研习了一下<code>inject</code>的用法 感觉可以做一点小东西出来玩一下。</p>
 <p>大乐透的前五位数有多少种组合呢？ 呵呵 </p>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 </pre></td><td class="code"><pre>(<span class="number">1</span>..<span class="number">35</span>).to_a.combination(<span class="number">5</span>).to_a
 </pre></td></tr></table></figure>
 
@@ -287,7 +506,7 @@ teach_math(<span class="number">2</span>,<span class="number">3</span>) {|x,y| x
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2013/09/08/ruby-inject/" data-id="oydqjnssozepxyzo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2013/09/08/ruby-inject/" data-id="rkf0iz6gt02q32mm" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2013/09/08/ruby-inject/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -330,25 +549,26 @@ teach_math(<span class="number">2</span>,<span class="number">3</span>) {|x,y| x
         <p>关于Ruby最佳实践的记录，我几乎已经放弃向周围的人推荐Ruby这门让人开心的语言了，原因其实很奇怪。</p>
 <p>关于参数，Ruby的Function中定义的函数或类总是会接收很多参数 不接受参数的Function不觉得很奇葩吗？</p>
 <p>传统的语法和实践是</p>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
-</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">CHR</span><span class="params">(username,login_id,message)</span></span>
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> </span><span class="constant">CHR</span>(username,login_id,message)
  <span class="comment">#...</span>
 <span class="keyword">end</span>
 </pre></td></tr></table></figure>
 
 <p>这个不能说错 但按照CodeSchool老师的原话来说<code>Location isn&#39;t always used, so let&#39;s add default.</code></p>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
-</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">CHR</span><span class="params">(username,login_id=<span class="keyword">nil</span>,message=<span class="keyword">nil</span>)</span></span>
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> </span><span class="constant">CHR</span>(username,login_id=<span class="keyword">nil</span>,message=<span class="keyword">nil</span>)
  <span class="comment">#...</span>
 <span class="keyword">end</span>
 </pre></td></tr></table></figure>
 
-<p>还有一种情况就是参数过多，以致于让function变得毫无可读性<code>have to keep placeholders for arguments you’re not using</code><br>这个时候可以采用 <code>HASH Arguments</code></p>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<p>还有一种情况就是参数过多，以致于让function变得毫无可读性<code>have to keep placeholders for arguments you’re not using</code>
+这个时候可以采用 <code>HASH Arguments</code></p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -358,7 +578,7 @@ teach_math(<span class="number">2</span>,<span class="number">3</span>) {|x,y| x
 8
 9
 </pre></td><td class="code"><pre>
-<span class="function"><span class="keyword">def</span> <span class="title">tweet</span><span class="params">(message, options = {})</span></span>
+<span class="function"><span class="keyword">def</span> </span>tweet(message, options = {})
   status = <span class="constant">Status</span>.new
   status.lat = options[<span class="symbol">:lat</span>]
   status.long = options[<span class="symbol">:long</span>]
@@ -369,7 +589,7 @@ teach_math(<span class="number">2</span>,<span class="number">3</span>) {|x,y| x
 </pre></td></tr></table></figure>
 
 <p>调用的时候 就可以利用Symbol来实现多参数。</p>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -390,7 +610,7 @@ teach_math(<span class="number">2</span>,<span class="number">3</span>) {|x,y| x
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2013/09/05/ruby-bits/" data-id="4z0w306ieqkggqzt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2013/09/05/ruby-bits/" data-id="k5da14esz2s26hxd" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2013/09/05/ruby-bits/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -427,7 +647,7 @@ teach_math(<span class="number">2</span>,<span class="number">3</span>) {|x,y| x
     <div class="article-entry" itemprop="articleBody">
       
         <p>一开始是在 <a href="https://class.coursera.org/startup-001/class/index" target="_blank">Coursera</a>上的公开课学到的 留个记录 以后会天天用到的。</p>
-<h3 id="-5b89-88c5-547d-4ee4-5f88-7b80-5355-_Gem-5305-">安装命令很简单 Gem包</h3>
+<h3 id="-gem-">安装命令很简单 Gem包</h3>
 <p><code>gem install heroku</code></p>
 <p><code>$ heroku keys</code> 可以查看目前主机中存有的key 如果没有你当前主机的话 就用<code>heroku keys:add</code></p>
 <p>Heroku只是一个托管平台而已 Code还是要保存在Github上 需要部署的时候部署过去。我还真不知道怎么从Heroku直接拖Code下来。</p>
@@ -446,7 +666,7 @@ Git remote heroku added
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2013/09/05/heroku/" data-id="6lhl9ouu4q5h4pt2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2013/09/05/heroku/" data-id="k0s118liqcrfy91k" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2013/09/05/heroku/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -486,18 +706,19 @@ Git remote heroku added
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="-4e00-822c-7684-505a-6cd5-">一般的做法</h4>
-<figure class="highlight lang-objective-c"><table><tr><td class="gutter"><pre>1
+        <h4 id="-">一般的做法</h4>
+<figure class="highlight objective-c"><table><tr><td class="gutter"><pre>1
 2
 3
 </pre></td><td class="code"><pre><span class="keyword">if</span>(someBOOLVariable){
-    NSLog(<span class="string">@"Hello from inside the if statement"</span>);
+    <span class="built_in">NSLog</span>(@<span class="string">"Hello from inside the if statement"</span>);
 }<span class="comment">//如果someBOOLVariable是YES {}里的代码将会被执行</span>
 </pre></td></tr></table></figure>
 
-<p>其实我们想的是能够括号里的代码能够脱离任何特定功能 比如触发条件<br>Blocks是一组代码 意味着 他可以被传递到方法或像NSArray或NSDictionary中集合</p>
-<h4 id="-5e-_-7b-7d-5757-53ef-4ee5-521b-5efa-">^ {}块可以创建</h4>
-<figure class="highlight lang-objective-c"><table><tr><td class="gutter"><pre>1
+<p>其实我们想的是能够括号里的代码能够脱离任何特定功能 比如触发条件
+Blocks是一组代码 意味着 他可以被传递到方法或像NSArray或NSDictionary中集合</p>
+<h4 id="-">^ {}块可以创建</h4>
+<figure class="highlight objective-c"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -505,12 +726,12 @@ Git remote heroku added
 6
 7
 </pre></td><td class="code"><pre>^{
-    NSLog(@<span class="string">"Hello from inside the block"</span>)<span class="comment">;</span>
-}<span class="comment">;</span>
+    <span class="built_in">NSLog</span>(@<span class="string">"Hello from inside the block"</span>);
+};
 
 ^LogMessage = ^ {
-    NSLog(@“你好块里面的”)<span class="comment">;</span>
-}<span class="comment">;</span>
+    <span class="built_in">NSLog</span>(@“你好块里面的”);
+};
 </pre></td></tr></table></figure>
 
 <p>
@@ -522,7 +743,7 @@ Git remote heroku added
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2013/08/15/about-blocks-with-objective-c/" data-id="9nutb275ya98qx35" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2013/08/15/about-blocks-with-objective-c/" data-id="nug49f63ghi1dnri" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2013/08/15/about-blocks-with-objective-c/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -562,7 +783,7 @@ Git remote heroku added
     
     <div class="article-entry" itemprop="articleBody">
       
-        <figure class="highlight lang-c"><table><tr><td class="gutter"><pre>1
+        <figure class="highlight c"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -597,34 +818,35 @@ Git remote heroku added
 留意float类型的计算和温度换算公式
 */</span>
 
-void setup() {
+<span class="keyword">void</span> setup() {
  
-  Serial<span class="preprocessor">.begin</span>(<span class="number">9600</span>)<span class="comment">;</span>
+  Serial.begin(<span class="number">9600</span>);
 }
  
-void loop() {
+<span class="keyword">void</span> loop() {
  
-  int n = analogRead(A0)<span class="comment">;    //读取A0口的电压值</span>
+  <span class="keyword">int</span> n = analogRead(A0);    <span class="comment">//读取A0口的电压值</span>
  
-  float vol = (n/<span class="number">1024.0</span>) * <span class="number">5.0</span><span class="comment">;   //使用浮点数存储温度数据，温度数据由电压值换算得到</span>
-  float T = vol*<span class="number">100</span><span class="comment">; </span>
+  <span class="keyword">float</span> vol = (n/<span class="number">1024.0</span>) * <span class="number">5.0</span>;   <span class="comment">//使用浮点数存储温度数据，温度数据由电压值换算得到</span>
+  <span class="keyword">float</span> T = vol*<span class="number">100</span>; 
  
-  Serial<span class="preprocessor">.print</span>(<span class="string">"analogRead A0: "</span>)<span class="comment">;</span>
-  Serial<span class="preprocessor">.print</span>(n)<span class="comment">;</span>
+  Serial.print(<span class="string">"analogRead A0: "</span>);
+  Serial.print(n);
    
-  Serial<span class="preprocessor">.print</span>(<span class="string">" Volatge: "</span>)<span class="comment">;</span>
-  Serial<span class="preprocessor">.print</span>(vol)<span class="comment">;</span>
+  Serial.print(<span class="string">" Volatge: "</span>);
+  Serial.print(vol);
   
-  Serial<span class="preprocessor">.print</span>(<span class="string">" Temperature: "</span>)<span class="comment">;</span>
-  Serial<span class="preprocessor">.println</span>(T)<span class="comment">;                   //串口输出温度数据</span>
-  delay(<span class="number">2000</span>)<span class="comment">;                           //等待2秒，控制刷新速度</span>
+  Serial.print(<span class="string">" Temperature: "</span>);
+  Serial.println(T);                   <span class="comment">//串口输出温度数据</span>
+  delay(<span class="number">2000</span>);                           <span class="comment">//等待2秒，控制刷新速度</span>
 
 }
 </pre></td></tr></table></figure>
 
-<h3 id="Analog_convert_Voltage">Analog convert Voltage</h3>
+<h3 id="analog-convert-voltage">Analog convert Voltage</h3>
 <p>LM35换算公式简化掉 Analog数值*(5/1024) 即可 5 voltage 1024 analog</p>
-<p><img src="http://25.media.tumblr.com/d0f801f032d35b3ff84a0df6c6c2cb63/tumblr_mnbaw9lKc31sst44io1_400.jpg" alt=""><br><img src="http://25.media.tumblr.com/0dae8653daf7cb673d7956f3ecc5ef20/tumblr_mnb63bt0J11sst44io1_400.jpg" alt=""></p>
+<p><img src="http://25.media.tumblr.com/d0f801f032d35b3ff84a0df6c6c2cb63/tumblr_mnbaw9lKc31sst44io1_400.jpg" alt="">
+<img src="http://25.media.tumblr.com/0dae8653daf7cb673d7956f3ecc5ef20/tumblr_mnb63bt0J11sst44io1_400.jpg" alt=""></p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
@@ -651,7 +873,7 @@ void loop() {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2013/06/08/lm35/" data-id="y57rq46pe08sqexq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2013/06/08/lm35/" data-id="1mbm1r8n9avmsb9v" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2013/06/08/lm35/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -694,39 +916,42 @@ void loop() {
         <p>关于HC-SR04 超声波传感器</p>
 <p>淘宝上面最便宜的SRF-04超声波传感器，有四个脚：5v电源脚（Vcc），触发控制端（Trig），接收端（Echo），地端（GND） 我的是HC-SR04</p>
 <p>模块工作原理：</p>
-<p>1.采用IO触发测距，给至少10us的高电平信号；<br>2.模块自动发送8个40KHz的方波，自动检测是否有信号返回；<br>3.有信号返回，通过IO输出一高电平，高电平持续的时间就是超声波从发射到返回的时间．测试距离=(高电平时间*声速(340m/s))/2;<br>pulseIn函数用于读取引脚脉冲的时间长度，脉冲可以是HIGH或LOW。如果是HIGH，函数将先等引脚变为高电平，然后开始计时，一直到变为低电平为止。返回脉冲持续的时间长短, 单位为ms。如果超时还没有读到的话, 将返回0。</p>
+<p>1.采用IO触发测距，给至少10us的高电平信号；
+2.模块自动发送8个40KHz的方波，自动检测是否有信号返回；
+3.有信号返回，通过IO输出一高电平，高电平持续的时间就是超声波从发射到返回的时间．测试距离=(高电平时间*声速(340m/s))/2;
+pulseIn函数用于读取引脚脉冲的时间长度，脉冲可以是HIGH或LOW。如果是HIGH，函数将先等引脚变为高电平，然后开始计时，一直到变为低电平为止。返回脉冲持续的时间长短, 单位为ms。如果超时还没有读到的话, 将返回0。</p>
 <p>Demo:</p>
 <p>发一个10ms的高脉冲去触发TrigPin</p>
-<figure class="highlight lang-c"><table><tr><td class="gutter"><pre>1
+<figure class="highlight c"><table><tr><td class="gutter"><pre>1
 2
 3
 4
 5
-</pre></td><td class="code"><pre><span class="function">digitalWrite(TrigPin, LOW)</span>;
-<span class="function">delayMicroseconds(<span class="number">2</span>)</span>; <span class="comment">//使发出发出超声波信号接口低电平2μs</span>
-<span class="function">digitalWrite(TrigPin, HIGH)</span>;
-<span class="function">delayMicroseconds(<span class="number">10</span>)</span>; <span class="comment">//使发出发出超声波信号接口高电平10μs，这里是至少10μs</span>
-<span class="function">digitalWrite(TrigPin, LOW)</span>; <span class="comment">//保持发出超声波信号接口低电平</span>
+</pre></td><td class="code"><pre>digitalWrite(TrigPin, LOW);
+delayMicroseconds(<span class="number">2</span>); <span class="comment">//使发出发出超声波信号接口低电平2μs</span>
+digitalWrite(TrigPin, HIGH);
+delayMicroseconds(<span class="number">10</span>); <span class="comment">//使发出发出超声波信号接口高电平10μs，这里是至少10μs</span>
+digitalWrite(TrigPin, LOW); <span class="comment">//保持发出超声波信号接口低电平</span>
 </pre></td></tr></table></figure>
 
-<h4 id="-8ddd-79bb-6362-7b97-">距离换算</h4>
+<h4 id="-">距离换算</h4>
 <ul>
 <li>cm = pulseIn(EchoPin, HIGH) / 58.0; //算成厘米</li>
 <li>cm = (int(cm * 100.0)) / 100.0; //保留两位小数</li>
 </ul>
 <p>原理理解以后 尽量使用arduino官方推荐的SR04超声波传感器类库</p>
-<h3 id="-8bfb-51fa-8109-51b2-65f6-95f4-">读出脉冲时间</h3>
-<figure class="highlight lang-c"><table><tr><td class="gutter"><pre>1
+<h3 id="-">读出脉冲时间</h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre>1
 2
-</pre></td><td class="code"><pre><span class="keyword">int</span> <span class="built_in">distance</span> = pulseIn(inputPin, HIGH);
-<span class="built_in">distance</span>= <span class="built_in">distance</span>/<span class="number">58</span>; <span class="comment">// 将脉冲时间转化为距离（单位：厘米）</span>
+</pre></td><td class="code"><pre><span class="keyword">int</span> distance = pulseIn(inputPin, HIGH);
+distance= distance/<span class="number">58</span>; <span class="comment">// 将脉冲时间转化为距离（单位：厘米）</span>
 </pre></td></tr></table></figure>
 
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2013/05/27/2013-06-09-guan-yu-hc-sr04-chao-sheng-bo-chuan-gan-qi/" data-id="9g64voin8o5647sy" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2013/05/27/2013-06-09-guan-yu-hc-sr04-chao-sheng-bo-chuan-gan-qi/" data-id="j91e8uznvwwohl9b" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2013/05/27/2013-06-09-guan-yu-hc-sr04-chao-sheng-bo-chuan-gan-qi/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -740,76 +965,9 @@ void loop() {
 
 
   
-    <article id="post-mysql-note" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2010/05/23/mysql-note/" class="article-date">
-  <time datetime="2010-05-23T15:43:00.000Z" itemprop="datePublished">May 23 2010</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/MySQL/">MySQL</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2010/05/23/mysql-note/">MySQL Note</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Select-67e5-8be2-7ec6-8282-ff1a-">Select查询细节：</h2>
-<h3 id="-3010-5339-914d-591a-4e2a-5b57-7b26-3011-">【匹配多个字符】</h3>
-<p><code>SELECT __ FROM __ WHERE ___ LIKE &#39;Smith% Corp.&#39;</code></p>
-<h4 id="Smith_Corp-_Smithson_Corp_-2026-2026-2026-2026-_-25-901a-914d-7b26-53ef-4ee5-5339-914d-0-4e2a-6216-591a-4e2a-5b57-7b26-">Smith Corp. Smithson Corp …………  %通配符可以匹配0个或多个字符</h4>
-<h3 id="-3010-5339-914d-5355-4e2a-5b57-7b26-3011-">【匹配单个字符】</h3>
-<p><code>SELECT __ FROM __ WHERE ___ LIKE &#39;Smiths_n Corp.&#39;</code></p>
-<h4 id="Smithson_Smithsen">Smithson Smithsen</h4>
-<h3 id="-3010-4ee5-4e0a-6a21-5f0f-7684-7ec4-5408-4f7f-7528-3011-">【以上模式的组合使用】</h3>
-<h4 id="-2018-Smiths_n_-25-2019-">‘Smiths_n %’</h4>
-<h3 id="-3010-8f6c-4e49-5b57-7b26-3011-">【转义字符】</h3>
-<p>比如搜索“A%BC”开始的产品   <code>&#39;A$%BC%&#39; ESCAPE &#39;$&#39;</code></p>
-<h3 id="-3010-5224-65ad-null-3011-">【判断null】</h3>
-<p>不能使用=来判断 IS NULL  IS NOT NULL</p>
-<h3 id="-3010-NOT-5224-65ad-3011-">【NOT判断】</h3>
-<p><code>AND NOT SALES &lt; 1500 不小于1500的</code></p>
-<h3 id="-3010-7d22-5f15-4f7f-7528-60c5-51b5-3011-">【索引使用情况】</h3>
-<ul>
-<li><code>Handler_read_key</code> 如果索引正在工作 这个值会很高</li>
-<li><code>Handler_read_rnd_next</code> 值如果高 证明查询运行低效<br>
-        
-          <p class="article-more-link">
-            <a href="/2010/05/23/mysql-note/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2010/05/23/mysql-note/" data-id="54cmu8oztj4wi627" class="article-share-link">Share</a>
-      
-        <a href="http://yoursite.com/2010/05/23/mysql-note/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+      <a class="extend prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 </section>
@@ -820,7 +978,7 @@ void loop() {
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arduino/">Arduino</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deploy/">Deploy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IOS/">IOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kettle/">Kettle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Objective-C/">Objective-C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Talks/">Talks</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arduino/">Arduino</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deploy/">Deploy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IOS/">IOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kettle/">Kettle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Objective-C/">Objective-C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RaspberryPi/">RaspberryPi</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Talks/">Talks</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -829,7 +987,7 @@ void loop() {
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Arduino/" style="font-size: 13.33px;">Arduino</a><a href="/tags/Deploy/" style="font-size: 10.00px;">Deploy</a><a href="/tags/Heroku/" style="font-size: 10.00px;">Heroku</a><a href="/tags/IOS/" style="font-size: 10.00px;">IOS</a><a href="/tags/JS/" style="font-size: 10.00px;">JS</a><a href="/tags/Kettle/" style="font-size: 10.00px;">Kettle</a><a href="/tags/Linux/" style="font-size: 10.00px;">Linux</a><a href="/tags/MySQL/" style="font-size: 16.67px;">MySQL</a><a href="/tags/Objective-C/" style="font-size: 10.00px;">Objective-C</a><a href="/tags/Ruby/" style="font-size: 20.00px;">Ruby</a><a href="/tags/Talks/" style="font-size: 10.00px;">Talks</a>
+      <a href="/tags/Arduino/" style="font-size: 12.50px;">Arduino</a><a href="/tags/Deploy/" style="font-size: 10.00px;">Deploy</a><a href="/tags/Heroku/" style="font-size: 10.00px;">Heroku</a><a href="/tags/IOS/" style="font-size: 10.00px;">IOS</a><a href="/tags/JS/" style="font-size: 10.00px;">JS</a><a href="/tags/Kettle/" style="font-size: 10.00px;">Kettle</a><a href="/tags/Linux/" style="font-size: 15.00px;">Linux</a><a href="/tags/MySQL/" style="font-size: 17.50px;">MySQL</a><a href="/tags/Objective-C/" style="font-size: 10.00px;">Objective-C</a><a href="/tags/RaspberryPi/" style="font-size: 12.50px;">RaspberryPi</a><a href="/tags/Ruby/" style="font-size: 20.00px;">Ruby</a><a href="/tags/Talks/" style="font-size: 10.00px;">Talks</a>
     </div>
   </div>
 
@@ -838,7 +996,7 @@ void loop() {
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">January 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09">September 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08">August 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05">May 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/05">May 2010</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">January 2014</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09">September 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08">August 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05">May 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/05">May 2010</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -850,23 +1008,23 @@ void loop() {
       <ul>
         
           <li>
+            <a href="/2014/01/15/raspberrypi下安装mysql56/">RaspberryPi下编译安装MySQL5.6</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/15/mysql-replication/">MYSQL Replication学习总结</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/10/mount-usb-disk-on-raspberry-pi/">Mount USB-disk on Raspberry-Pi</a>
+          </li>
+        
+          <li>
             <a href="/2014/01/10/fix-hexo-archive-display-issue/">Fix Hexo Archive display issue</a>
           </li>
         
           <li>
-            <a href="/2014/01/10/mysql-replication/">MYSQL Replication学习总结</a>
-          </li>
-        
-          <li>
             <a href="/2014/01/09/mysql-error-1372-(hy000)/">MYSQL ERROR 1372 (HY000)</a>
-          </li>
-        
-          <li>
-            <a href="/2014/01/09/why-used-cmake/">为什么用Cmake？</a>
-          </li>
-        
-          <li>
-            <a href="/2014/01/07/linux-install-mysql55/">Linux Install MySQL5.5</a>
           </li>
         
       </ul>

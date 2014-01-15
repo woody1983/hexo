@@ -108,34 +108,34 @@
 </pre></td></tr></table></figure>
 
 <p><a href="http://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.15.tar.gz" target="_blank">Get MySQL5.6.15</a></p>
-<figure class="highlight lang-shell"><table><tr><td class="gutter"><pre>1
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
 2
 3
 4
-</pre></td><td class="code"><pre>cmake <span class="attribute">-DCMAKE_INSTALL_PREFIX</span><span class="subst">=/</span>opt<span class="subst">/</span>mysql <span class="attribute">-DMYSQL_UNIX_ADDR</span><span class="subst">=/</span>tmp<span class="subst">/</span>mysql<span class="built_in">.</span>sock <span class="attribute">-DDEFAULT_CHARSET</span><span class="subst">=</span>utf8 <span class="subst">\</span>
+</pre></td><td class="code"><pre>cmake <span class="attribute">-DCMAKE_INSTALL_PREFIX</span><span class="subst">=</span>/opt/mysql <span class="attribute">-DMYSQL_UNIX_ADDR</span><span class="subst">=</span>/tmp/mysql<span class="built_in">.</span>sock <span class="attribute">-DDEFAULT_CHARSET</span><span class="subst">=</span>utf8 <span class="subst">\</span>
 <span class="attribute">-DDEFAULT_COLLATION</span><span class="subst">=</span>utf8_general_ci  <span class="attribute">-DWITH_EXTRA_CHARSETS</span><span class="subst">=</span><span class="literal">all</span> <span class="attribute">-DWITH_INNOBASE_STORAGE_ENGINE</span><span class="subst">=</span><span class="number">1</span> <span class="subst">\</span>
 <span class="attribute">-DWITH_ARCHIVE_STORAGE_ENGINE</span><span class="subst">=</span><span class="number">1</span> <span class="attribute">-DWITH_BLACKHOLE_STORAGE_ENGINE</span><span class="subst">=</span><span class="number">1</span> <span class="attribute">-DWITH_PERFSCHEMA_STORAGE_ENGINE</span><span class="subst">=</span><span class="number">1</span> <span class="subst">\</span>
 <span class="attribute">-DWITH_SSL</span><span class="subst">=</span>yes  <span class="attribute">-DENABLED_LOCAL_INFILE</span><span class="subst">=</span><span class="number">1</span>
 </pre></td></tr></table></figure>
 
 <p><a id="more"></a></p>
-<h3 id="Setup_after_Installed">Setup after Installed</h3>
+<h3 id="setup-after-installed">Setup after Installed</h3>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
-</pre></td><td class="code"><pre><span class="title">chown</span> -<span class="type">R</span> root.mysql /opt/mysql/ 
-<span class="title">chown</span> -<span class="type">R</span> mysql.mysql /opt/mysql/<span class="keyword">data</span>/
+</pre></td><td class="code"><pre>chown <span class="attribute">-R</span> root<span class="built_in">.</span>mysql /opt/mysql<span class="subst">/</span> 
+chown <span class="attribute">-R</span> mysql<span class="built_in">.</span>mysql /opt/mysql/<span class="built_in">data</span><span class="subst">/</span>
 </pre></td></tr></table></figure>
 
-<h3 id="Init_Database">Init Database</h3>
+<h3 id="init-database">Init Database</h3>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 </pre></td><td class="code"><pre><span class="comment">/opt/mysql/scripts/mysql_install_db</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">user=mysql</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">basedir=/opt/mysql/</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">datadir=/opt/mysql/data/</span>
 <span class="comment">cp</span> <span class="comment">/opt/mysql/support</span><span class="literal">-</span><span class="comment">files/my</span><span class="literal">-</span><span class="comment">default</span><span class="string">.</span><span class="comment">cnf</span> <span class="comment">/etc/my</span><span class="string">.</span><span class="comment">cnf</span>
 </pre></td></tr></table></figure>
 
-<h3 id="Start_running">Start running</h3>
+<h3 id="start-running">Start running</h3>
 <p><code>/opt/mysql/bin/mysqld_safe &amp;</code></p>
-<h2 id="cmake-7f16-8bd1-53c2-6570-8be6-89e3-ff1a-">cmake编译参数详解：</h2>
+<h2 id="cmake-">cmake编译参数详解：</h2>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
@@ -163,7 +163,7 @@
 -DWITH_PERFSCHEMA_STORAGE_ENGINE=<span class="number">1</span>  ：常用存储引擎参数设置
 
 -DDEFAULT_CHARSET=charset_name
-The server <span class="keyword">character</span> set. By default, MySQL uses <span class="operator">the</span> latin1 (cp1252 West European) <span class="keyword">character</span> set.
+The server <span class="keyword">character</span> <span class="built_in">set</span>. By default, MySQL uses <span class="operator">the</span> latin1 (cp1252 West European) <span class="keyword">character</span> <span class="built_in">set</span>.
 charset_name may be <span class="constant">one</span> <span class="operator">of</span> binary, armscii8, ascii, big5, cp1250, cp1251, cp1256, 
 cp1257, cp850, cp852, cp866, cp932, dec8, eucjpms, euckr, gb2312, gbk, geostd8, greek, 
 hebrew, hp8, keybcs2, koi8r, koi8u, latin1, latin2, latin5, latin7, macce, macroman, sjis, 
@@ -180,7 +180,7 @@ This must be <span class="operator">an</span> absolute path name. The default is
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/01/09/why-used-cmake/" data-id="n92z4ez351tszs72" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2014/01/09/why-used-cmake/" data-id="whbjvhkda6pronsr" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2014/01/09/why-used-cmake/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -227,7 +227,7 @@ This must be <span class="operator">an</span> absolute path name. The default is
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arduino/">Arduino</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deploy/">Deploy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IOS/">IOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kettle/">Kettle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Objective-C/">Objective-C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Talks/">Talks</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arduino/">Arduino</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deploy/">Deploy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IOS/">IOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kettle/">Kettle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Objective-C/">Objective-C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RaspberryPi/">RaspberryPi</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Talks/">Talks</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -236,7 +236,7 @@ This must be <span class="operator">an</span> absolute path name. The default is
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Arduino/" style="font-size: 13.33px;">Arduino</a><a href="/tags/Deploy/" style="font-size: 10.00px;">Deploy</a><a href="/tags/Heroku/" style="font-size: 10.00px;">Heroku</a><a href="/tags/IOS/" style="font-size: 10.00px;">IOS</a><a href="/tags/JS/" style="font-size: 10.00px;">JS</a><a href="/tags/Kettle/" style="font-size: 10.00px;">Kettle</a><a href="/tags/Linux/" style="font-size: 10.00px;">Linux</a><a href="/tags/MySQL/" style="font-size: 16.67px;">MySQL</a><a href="/tags/Objective-C/" style="font-size: 10.00px;">Objective-C</a><a href="/tags/Ruby/" style="font-size: 20.00px;">Ruby</a><a href="/tags/Talks/" style="font-size: 10.00px;">Talks</a>
+      <a href="/tags/Arduino/" style="font-size: 12.50px;">Arduino</a><a href="/tags/Deploy/" style="font-size: 10.00px;">Deploy</a><a href="/tags/Heroku/" style="font-size: 10.00px;">Heroku</a><a href="/tags/IOS/" style="font-size: 10.00px;">IOS</a><a href="/tags/JS/" style="font-size: 10.00px;">JS</a><a href="/tags/Kettle/" style="font-size: 10.00px;">Kettle</a><a href="/tags/Linux/" style="font-size: 15.00px;">Linux</a><a href="/tags/MySQL/" style="font-size: 17.50px;">MySQL</a><a href="/tags/Objective-C/" style="font-size: 10.00px;">Objective-C</a><a href="/tags/RaspberryPi/" style="font-size: 12.50px;">RaspberryPi</a><a href="/tags/Ruby/" style="font-size: 20.00px;">Ruby</a><a href="/tags/Talks/" style="font-size: 10.00px;">Talks</a>
     </div>
   </div>
 
@@ -245,7 +245,7 @@ This must be <span class="operator">an</span> absolute path name. The default is
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">January 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09">September 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08">August 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05">May 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/05">May 2010</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">January 2014</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09">September 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08">August 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05">May 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/05">May 2010</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -257,23 +257,23 @@ This must be <span class="operator">an</span> absolute path name. The default is
       <ul>
         
           <li>
+            <a href="/2014/01/15/raspberrypi下安装mysql56/">RaspberryPi下编译安装MySQL5.6</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/15/mysql-replication/">MYSQL Replication学习总结</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/10/mount-usb-disk-on-raspberry-pi/">Mount USB-disk on Raspberry-Pi</a>
+          </li>
+        
+          <li>
             <a href="/2014/01/10/fix-hexo-archive-display-issue/">Fix Hexo Archive display issue</a>
           </li>
         
           <li>
-            <a href="/2014/01/10/mysql-replication/">MYSQL Replication学习总结</a>
-          </li>
-        
-          <li>
             <a href="/2014/01/09/mysql-error-1372-(hy000)/">MYSQL ERROR 1372 (HY000)</a>
-          </li>
-        
-          <li>
-            <a href="/2014/01/09/why-used-cmake/">为什么用Cmake？</a>
-          </li>
-        
-          <li>
-            <a href="/2014/01/07/linux-install-mysql55/">Linux Install MySQL5.5</a>
           </li>
         
       </ul>

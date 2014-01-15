@@ -10,7 +10,7 @@
 <meta name="og:url" content="http://yoursite.com/2013/09/25/eigenclass-with-module/">
 <meta name="og:image">
 <meta name="og:site_name" content="Semiscon">
-<meta name="og:description" content="我用了一个很笨的方法才把这个搞明白 那就是… 
+<meta name="og:description" content="我用了一个很笨的方法才把这个搞明白 那就是... 
 Module的eigenclass 不会被任何事物继承  绝对封闭！
 元编程#129Pages#Quiz
 例子弄错了~在线编辑器害死人  凸
@@ -35,7 +35,7 @@ module MyModule
   def my_method; 'hello';end
 end
 
-class Myclas">
+class Mycl">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Semiscon" type="application/atom+xml">
@@ -113,11 +113,11 @@ class Myclas">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>我用了一个很笨的方法才把这个搞明白 那就是… </p>
-<h1 id="Module-7684-eigenclass_-4e0d-4f1a-88ab-4efb-4f55-4e8b-7269-7ee7-627f-_-7edd-5bf9-5c01-95ed-ff01-">Module的eigenclass 不会被任何事物继承  绝对封闭！</h1>
+        <p>我用了一个很笨的方法才把这个搞明白 那就是... </p>
+<h1 id="module-eigenclass-">Module的eigenclass 不会被任何事物继承  绝对封闭！</h1>
 <p><code>元编程#129Pages#Quiz</code></p>
-<h3 id="-4f8b-5b50-5f04-9519-4e86-7e-5728-7ebf-7f16-8f91-5668-5bb3-6b7b-4eba-_-51f8-">例子弄错了~在线编辑器害死人  凸</h3>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<h3 id="-">例子弄错了~在线编辑器害死人  凸</h3>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -135,7 +135,7 @@ class Myclas">
 16
 17
 </pre></td><td class="code"><pre><span class="class"><span class="keyword">module</span> <span class="title">MyModule</span> </span>
-  <span class="function"><span class="keyword">def</span> <span class="title">my_method</span>;</span> <span class="string">'hello'</span>;<span class="keyword">end</span>
+  <span class="function"><span class="keyword">def</span> </span>my_method; <span class="string">'hello'</span>;<span class="keyword">end</span>
 <span class="keyword">end</span>
 
 <span class="class"><span class="keyword">class</span> <span class="title">Myclass</span> </span>
@@ -153,10 +153,11 @@ irb(main)<span class="symbol">:</span><span class="number">012</span><span class
 <span class="comment">#=&gt; nil</span>
 </pre></td></tr></table></figure>
 
-<p>在Module中定义一个普通的实例方法 Myclass Include该Module 只有Myclass的实例obj可以调用<br>也就是说<code>my_method</code>一直作为实例方法在ancestors中流窜</p>
+<p>在Module中定义一个普通的实例方法 Myclass Include该Module 只有Myclass的实例obj可以调用
+也就是说<code>my_method</code>一直作为实例方法在ancestors中流窜</p>
 <a id="more"></a>
 
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -173,7 +174,7 @@ irb(main)<span class="symbol">:</span><span class="number">012</span><span class
 15
 16
 </pre></td><td class="code"><pre><span class="class"><span class="keyword">module</span> <span class="title">MyModule</span> </span>
-	<span class="function"><span class="keyword">def</span> <span class="title"><span class="keyword">self</span></span>.<span class="title">my_method</span>;</span> <span class="string">'hello'</span>;<span class="keyword">end</span>
+	<span class="function"><span class="keyword">def</span> </span><span class="keyword">self</span>.my_method; <span class="string">'hello'</span>;<span class="keyword">end</span>
 <span class="keyword">end</span>
 
 <span class="class"><span class="keyword">class</span> <span class="title">Myclass</span></span>
@@ -190,8 +191,9 @@ irb(main)<span class="symbol">:</span><span class="number">010</span><span class
 <span class="comment">#NoMethodError: undefined method `my_method' for #&lt;Myclass:0x8627980&gt;</span>
 </pre></td></tr></table></figure>
 
-<p>第二次  将Module中的方法改成是了实例方法  结果正常 只有MyModule可以正常调用  但Myclass并没有继承到<br>难道在Myclass的eigenclass中并没有得到这个继承？</p>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<p>第二次  将Module中的方法改成是了实例方法  结果正常 只有MyModule可以正常调用  但Myclass并没有继承到
+难道在Myclass的eigenclass中并没有得到这个继承？</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -210,7 +212,7 @@ irb(main)<span class="symbol">:</span><span class="number">010</span><span class
 17
 18
 </pre></td><td class="code"><pre><span class="class"><span class="keyword">module</span> <span class="title">MyModule</span> </span>
-  <span class="function"><span class="keyword">def</span> <span class="title">my_method</span>;</span> <span class="string">'hello'</span>;<span class="keyword">end</span>
+  <span class="function"><span class="keyword">def</span> </span>my_method; <span class="string">'hello'</span>;<span class="keyword">end</span>
 <span class="keyword">end</span>
 
 <span class="class"><span class="keyword">class</span> <span class="title">Myclass</span> </span>
@@ -230,8 +232,8 @@ irb(main)<span class="symbol">:</span><span class="number">012</span><span class
 </pre></td></tr></table></figure>
 
 <p>第三次和第一次的修改差异在 将MyModule植入到 Myclass的eigenclass中了~ Myclass可以正常调用该类方法</p>
-<h3 id="-53ef-662f-4f5c-4e3a-_Myclass-7684-5b9e-4f8b-5bf9-8c61-obj-5374-4e0d-80fd-8c03-7528-8fd9-4e2a-my_method-4e86-">可是作为 Myclass的实例对象obj却不能调用这个my_method了</h3>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<h3 id="-myclass-obj-my_method-">可是作为 Myclass的实例对象obj却不能调用这个my_method了</h3>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -252,7 +254,7 @@ irb(main)<span class="symbol">:</span><span class="number">012</span><span class
 19
 20
 </pre></td><td class="code"><pre><span class="class"><span class="keyword">module</span> <span class="title">MyModule</span> </span>
-	<span class="function"><span class="keyword">def</span> <span class="title"><span class="keyword">self</span></span>.<span class="title">my_method</span>;</span> <span class="string">'hello'</span>;<span class="keyword">end</span>
+	<span class="function"><span class="keyword">def</span> </span><span class="keyword">self</span>.my_method; <span class="string">'hello'</span>;<span class="keyword">end</span>
 <span class="keyword">end</span>
 
 <span class="class"><span class="keyword">class</span> <span class="title">Myclass</span> </span>
@@ -275,7 +277,7 @@ irb(main)<span class="symbol">:</span><span class="number">012</span><span class
 
 <p>第四次和第二次 得到的结果是一样的 也就是进没进Myclass的eigenclass都一样~ </p>
 <p>我把第四部分重写了一下 加入了另一个实例方法在Module中</p>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -291,8 +293,8 @@ irb(main)<span class="symbol">:</span><span class="number">012</span><span class
 14
 15
 </pre></td><td class="code"><pre><span class="class"><span class="keyword">module</span> <span class="title">MyModule</span></span>
-  <span class="function"><span class="keyword">def</span> <span class="title"><span class="keyword">self</span></span>.<span class="title">my_method</span>;</span> <span class="string">'hello'</span>;<span class="keyword">end</span>
-  <span class="function"><span class="keyword">def</span> <span class="title">mine_method</span>;</span> <span class="string">'another method'</span>; <span class="keyword">end</span>
+  <span class="function"><span class="keyword">def</span> </span><span class="keyword">self</span>.my_method; <span class="string">'hello'</span>;<span class="keyword">end</span>
+  <span class="function"><span class="keyword">def</span> </span>mine_method; <span class="string">'another method'</span>; <span class="keyword">end</span>
 <span class="keyword">end</span>
 
 <span class="class"><span class="keyword">class</span> <span class="title">Myclass</span></span>
@@ -308,8 +310,8 @@ irb(main)<span class="symbol">:</span><span class="number">013</span><span class
 </pre></td></tr></table></figure>
 
 <p>看来<code>class &lt;&lt; self</code>这种方法只能把MyModule中的实例方法植入到Myclass的eigenclass中 类方法不行</p>
-<h2 id="-96be-9053-4e0b-9762-8fd9-4e48-505a-662f-8ba9-_MyModule-4ec5-4ec5-690d-5165-5230-_Myclass-7684-eigenclass-4e2d-_-800c-5728-Myclass-4e2d-662f-4e0d-53ef-89c1-7684-ff1f-">难道下面这么做是让 MyModule仅仅植入到 Myclass的eigenclass中 而在Myclass中是不可见的？</h2>
-<figure class="highlight lang-ruby"><table><tr><td class="gutter"><pre>1
+<h2 id="-mymodule-myclass-eigenclass-myclass-">难道下面这么做是让 MyModule仅仅植入到 Myclass的eigenclass中 而在Myclass中是不可见的？</h2>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -325,7 +327,7 @@ irb(main)<span class="symbol">:</span><span class="number">013</span><span class
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2013/09/25/eigenclass-with-module/" data-id="8168f2rjechssyg2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2013/09/25/eigenclass-with-module/" data-id="l6wkw55em3d4s61k" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2013/09/25/eigenclass-with-module/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -372,7 +374,7 @@ irb(main)<span class="symbol">:</span><span class="number">013</span><span class
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arduino/">Arduino</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deploy/">Deploy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IOS/">IOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kettle/">Kettle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Objective-C/">Objective-C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Talks/">Talks</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arduino/">Arduino</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deploy/">Deploy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IOS/">IOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kettle/">Kettle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Objective-C/">Objective-C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RaspberryPi/">RaspberryPi</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Talks/">Talks</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -381,7 +383,7 @@ irb(main)<span class="symbol">:</span><span class="number">013</span><span class
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Arduino/" style="font-size: 13.33px;">Arduino</a><a href="/tags/Deploy/" style="font-size: 10.00px;">Deploy</a><a href="/tags/Heroku/" style="font-size: 10.00px;">Heroku</a><a href="/tags/IOS/" style="font-size: 10.00px;">IOS</a><a href="/tags/JS/" style="font-size: 10.00px;">JS</a><a href="/tags/Kettle/" style="font-size: 10.00px;">Kettle</a><a href="/tags/Linux/" style="font-size: 10.00px;">Linux</a><a href="/tags/MySQL/" style="font-size: 16.67px;">MySQL</a><a href="/tags/Objective-C/" style="font-size: 10.00px;">Objective-C</a><a href="/tags/Ruby/" style="font-size: 20.00px;">Ruby</a><a href="/tags/Talks/" style="font-size: 10.00px;">Talks</a>
+      <a href="/tags/Arduino/" style="font-size: 12.50px;">Arduino</a><a href="/tags/Deploy/" style="font-size: 10.00px;">Deploy</a><a href="/tags/Heroku/" style="font-size: 10.00px;">Heroku</a><a href="/tags/IOS/" style="font-size: 10.00px;">IOS</a><a href="/tags/JS/" style="font-size: 10.00px;">JS</a><a href="/tags/Kettle/" style="font-size: 10.00px;">Kettle</a><a href="/tags/Linux/" style="font-size: 15.00px;">Linux</a><a href="/tags/MySQL/" style="font-size: 17.50px;">MySQL</a><a href="/tags/Objective-C/" style="font-size: 10.00px;">Objective-C</a><a href="/tags/RaspberryPi/" style="font-size: 12.50px;">RaspberryPi</a><a href="/tags/Ruby/" style="font-size: 20.00px;">Ruby</a><a href="/tags/Talks/" style="font-size: 10.00px;">Talks</a>
     </div>
   </div>
 
@@ -390,7 +392,7 @@ irb(main)<span class="symbol">:</span><span class="number">013</span><span class
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">January 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09">September 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08">August 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05">May 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/05">May 2010</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">January 2014</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09">September 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08">August 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05">May 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/05">May 2010</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -402,23 +404,23 @@ irb(main)<span class="symbol">:</span><span class="number">013</span><span class
       <ul>
         
           <li>
+            <a href="/2014/01/15/raspberrypi下安装mysql56/">RaspberryPi下编译安装MySQL5.6</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/15/mysql-replication/">MYSQL Replication学习总结</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/10/mount-usb-disk-on-raspberry-pi/">Mount USB-disk on Raspberry-Pi</a>
+          </li>
+        
+          <li>
             <a href="/2014/01/10/fix-hexo-archive-display-issue/">Fix Hexo Archive display issue</a>
           </li>
         
           <li>
-            <a href="/2014/01/10/mysql-replication/">MYSQL Replication学习总结</a>
-          </li>
-        
-          <li>
             <a href="/2014/01/09/mysql-error-1372-(hy000)/">MYSQL ERROR 1372 (HY000)</a>
-          </li>
-        
-          <li>
-            <a href="/2014/01/09/why-used-cmake/">为什么用Cmake？</a>
-          </li>
-        
-          <li>
-            <a href="/2014/01/07/linux-install-mysql55/">Linux Install MySQL5.5</a>
           </li>
         
       </ul>
